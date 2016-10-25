@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Hamster-Blog:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Hamster-Blog.war">
+      <element id="artifact" artifact-name="Hamster-Blog:war exploded" />
+    </root>
+  </artifact>
+</component>
