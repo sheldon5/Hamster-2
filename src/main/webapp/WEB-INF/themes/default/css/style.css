@@ -1,0 +1,183 @@
+/*全局设置*/
+body {
+    background: #ebebeb;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 微软雅黑;
+}
+
+a {
+    text-decoration: none;
+    -webkit-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    -moz-transition: all 200ms ease-in;
+}
+
+a:hover, a:link, a:visited, a:active {
+    text-decoration: none;
+    color: #3F3F3F;
+}
+
+a:hover {
+    /*color: #204d74;*/
+    color: #583DFF;
+}
+
+/*导航栏标题*/
+.nav-title {
+    font-size: 22px;
+    text-align: center;
+}
+
+/*网页脚设置*/
+.copyright a {
+    color: #0f0f0f;
+}
+
+.netsupervisor-div {
+    width: 300px;
+    margin: 0 auto;
+    padding: 0px 0;
+}
+
+.netsupervisor-a {
+    display: inline-block;
+    text-decoration: none;
+    height: 15px;
+    line-height: 15px;
+}
+
+.netsupervisor-text {
+    color: #0f0f0f;
+    float: left;
+    height: 15px;
+    line-height: 15px;
+    margin: 0px 0px 0px 5px;
+}
+
+.netsupervisor-image {
+    float: left;
+}
+
+/*订阅*/
+.rss-title {
+    color: #5cb85c;
+}
+
+/*留言*/
+.comment-title {
+    color: #337ab7;
+}
+
+.visitor-text {
+    color: #d58512;
+}
+
+/*联系方式*/
+.contact-title {
+    color: #a94442;
+}
+
+.social {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#footer .social {
+    margin: 0;
+    text-align: left;
+}
+
+.social li {
+    display: inline;
+    margin: 0 2px;
+}
+
+.social a {
+    background: transparent url(image/social-icons.png) no-repeat 0 0;
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    position: relative;
+    -webkit-transition: none 200ms ease-in;
+    -o-transition: none 200ms ease-in;
+    -moz-transition: none 200ms ease-in;
+}
+
+.social a.rss {
+    background-position: 0 0;
+}
+
+.social a.qq {
+    background-position: -32px 0;
+}
+
+.social .weibo {
+    background-position: -64px 0;
+}
+
+.social .wechat {
+    background-position: -96px 0;
+}
+
+.social .email {
+    background-position: -128px 0;
+}
+
+.social .phone {
+    background-position: -160px 0;
+}
+
+.social a.rss:hover {
+    background-position: 0 bottom;
+}
+
+.social .qq:hover {
+    background-position: -32px bottom;
+}
+
+.social .weibo:hover {
+    background-position: -64px bottom;
+}
+
+.social .wechat:hover {
+    background-position: -96px bottom;
+}
+
+.social .email:hover {
+    background-position: -128px bottom;
+}
+
+.social .phone:hover {
+    background-position: -160px bottom;
+}
+
+.wechat-img {
+    width: 65%;
+    height: 65%;
+}
+
+/*管理界面*/
+.manage-text {
+    color: #c9302c;
+    text-align: center;
+    margin-top: 15%;
+    margin-bottom: 25%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome-nav {
+    height: 180px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
