@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coselding.hamster.dao.UserDao">
+    <!-- 目的：为dao接口方法提供配置 -->
+    <insert id="saveUser" parameterType="User" useGeneratedKeys="true" keyProperty="uid">
+        insert into
+          `user`
+          (uname,password,utime)
+        values
+          (#{uname},#{password},#{utime});
+    </insert>
+
+    <delete id="deleteUser">
+        delete ignore from `user` where uid=#{uid};
+    </delete>
+
+    <update id="updateUser" parameterType="User">
+        update
+          `user`
+        set
+          uname=#{uname},
+          password=#{password}
+        where
+          uid=#{uid};
+    </update>
+
+    <select id="queryUser" resultType="User" parameterType="int">
+        select
+          *
+        from
+          `user`
+        where
+          uid=#{uid};
+    </select>
+    <select id="queryUserByName" resultType="User">
+        select
+          *
+        from
+          `user`
+        where
+          uname=#{uname};
+    </select>
+
+    <select id="queryUsers" resultType="User">
+        select * from `user`;
+    </select>
+    <select id="getCount" resultType="int">
+        select count(*) from `user`;
+    </select>
+
+    <select id="getPageData" resultType="User">
+        select * from `user` limit #{startindex},#{pagesize};
+    </select>
+</mapper>

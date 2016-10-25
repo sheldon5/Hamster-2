@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+       <!-- 扫描service包下所有使用注解的类型 -->
+       <context:component-scan base-package="cn.coselding.hamster.service"/>
+
+       <!-- 配置事务管理器 -->
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <!-- 注入数据库连接池 -->
+              <property name="dataSource" ref="dataSource"/>
+       </bean>
+
+       <!-- 配置基于注解的声明式事务
+            默认使用注解来管理事务行为-->
+       <tx:annotation-driven transaction-manager="transactionManager"/>
+
+       <!--额外的工具bean -->
+       <!-- Java mail工具 -->
+       <bean id="javaMailWithAttachment" class="cn.coselding.hamster.email.JavaMailWithAttachment" scope="singleton">
+           <constructor-arg index="0" value="false"/>
+           <constructor-arg index="1" value="MailServer.properties"/>
+           <constructor-arg index="2" ref="config"/>
+       </bean>
+       <!-- 全局配置类 -->
+       <bean id="config" class="cn.coselding.hamster.utils.Config" scope="singleton">
+           <constructor-arg index="0" value="config.properties"/>
+       </bean>
+       <!-- 模板引擎工具 -->
+       <bean id="templateHandler" class="cn.coselding.hamster.dao.TemplateHandler" scope="singleton"/>
+       <!-- MD解析工具 -->
+       <bean id="markdown4jProcessor" class="org.markdown4j.Markdown4jProcessor" scope="singleton"/>
+       <!-- 全局缓存 -->
+       <bean id="globalCache" class="cn.coselding.hamster.utils.GlobalCache" scope="singleton">
+           <constructor-arg index="0" ref="config"/>
+       </bean>
+</beans>

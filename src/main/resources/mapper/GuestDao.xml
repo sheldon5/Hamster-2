@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coselding.hamster.dao.GuestDao">
+    <!-- 目的：为dao接口方法提供配置 -->
+    <insert id="saveGuest" parameterType="Guest" useGeneratedKeys="true" keyProperty="gid">
+        insert into
+          guest
+          (gname,gemail,rss)
+        values
+          (#{gname},#{gemail},#{rss});
+    </insert>
+    <delete id="deleteGuest">
+        delete ignore from guest where gid=#{gid};
+    </delete>
+    <update id="updateGuest" parameterType="Guest">
+        update
+          guest
+        set
+          gname=#{gname},
+          gemail=#{gemail},
+          rss=#{rss}
+        where gid=#{gid};
+    </update>
+
+    <select id="queryGuest" resultType="Guest" parameterType="int">
+        select
+          *
+        from
+          guest
+        where
+          gid=#{gid};
+    </select>
+
+    <select id="queryRssGuests" resultType="Guest">
+        select * from guest where rss=#{rss};
+    </select>
+
+    <select id="queryCount" resultType="int">
+        select count(*) from guest;
+    </select>
+    <select id="getPageData" resultType="Guest">
+        select * from guest limit #{startindex},#{pagesize};
+    </select>
+
+    <select id="queryGuestByEmail" resultType="Guest">
+        select * from guest where gemail=#{gemail};
+    </select>
+</mapper>

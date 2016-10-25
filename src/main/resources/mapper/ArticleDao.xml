@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coselding.hamster.dao.ArticleDao">
+    <!-- 目的：为dao接口方法提供配置 -->
+    <insert id="saveArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="artid">
+        insert into article
+          (cid,time,author,likes,looked,title,meta,content,staticURL,uid,type,top,md,editor,deploy)
+        values
+          (#{cid},#{time},#{author},#{likes},#{looked},#{title},
+            #{meta},#{content},#{staticURL},#{uid},#{type},#{top},#{md},#{editor},#{deploy}
+          );
+    </insert>
+    <delete id="deleteArticle">
+        delete from article where artid=#{artid};
+    </delete>
+    <update id="updateArticle" parameterType="Article">
+        update
+          article
+        set
+          cid=#{cid},
+          time=#{time},
+          likes=#{likes},
+          looked=#{looked},
+          title=#{title},
+          meta=#{meta},
+          content=#{content},
+          staticURL=#{staticURL},
+          type=#{type},
+          top=#{top},
+          md=#{md},
+          editor=#{editor},
+          deploy=#{deploy}
+        where
+          artid=#{artid};
+    </update>
+    <update id="updateArticleInfo" parameterType="Article">
+        update
+          article
+        set
+          time=#{time},
+          likes=#{likes},
+          looked=#{looked},
+          staticURL=#{staticURL}
+        where
+          artid=#{artid};
+    </update>
+
+    <select id="queryArticle" resultType="Article" parameterType="int">
+        select
+          c.cid,c.cname,art.artid,`time`,author,likes,looked,title,meta,content,staticURL,uid,`type`,top,md,editor,deploy
+        from
+          article art,category c
+        where
+          art.cid=c.cid and
+          art.artid=#{artid};
+    </select>
+    <select id="queryArticleInfo" resultType="Article" parameterType="int">
+        select artid,looked,likes,time,staticURL,title from article where artid=#{artid};
+    </select>
+    <select id="queryLastArticleInfo" resultType="Article">
+        select
+          title,`time`,artid,cid,staticURL
+        from
+          article
+        where
+          `time`<![CDATA[<]]>#{time} and
+          deploy=0
+        order by `time` desc
+        limit 0,1;
+    </select>
+    <select id="queryNextArticleInfo" resultType="Article">
+        select
+          title,`time`,artid,cid,staticURL
+        from
+          article
+        where
+          `time`>#{time} and
+          deploy=0
+        order by `time` asc
+        limit 0,1;
+    </select>
+
+    <select id="queryCount" resultType="int">
+        select
+          count(*)
+        from
+          article
+        where
+          deploy=0;
+    </select>
+    <select id="getPageData" resultType="Article">
+        select
+          *
+        from
+          article
+        where
+          deploy=0
+        limit #{startindex},#{pagesize};
+    </select>
+    <select id="getPageDataInfo" resultType="Article">
+        select
+          artid,`time`,author,title,staticURL,a.cid,top,looked,likes,c.cname,meta
+        from
+          article a,category c
+        where
+          a.cid=c.cid and
+          deploy=0
+        order by top desc,`time` desc
+        limit #{startindex},#{pagesize};
+    </select>
+
+    <select id="queryCountByCid" resultType="int">
+        select
+          count(*)
+        from
+          article
+        where
+          cid=#{cid} and
+          deploy=0;
+    </select>
+    <select id="getPageDataByCid" resultType="Article">
+        select
+          artid,`time`,author,title,staticURL,a.cid,c.cname,top,looked,likes,c.cname,meta,deploy
+        from
+          article a,category c
+        where
+          a.cid=#{cid} and
+          a.cid=c.cid and
+          deploy=0
+        order by top desc,`time` desc
+        limit #{startindex},#{pagesize};
+    </select>
+
+    <select id="searchCount" resultType="int">
+        select
+          count(*)
+        from
+          article
+        where
+          title like '%${key}%' and
+          deploy=0;
+    </select>
+    <select id="searchPageData" resultType="Article">
+        select
+          artid,`time`,author,a.cid,title,staticURL,top,looked,likes,c.cname,meta
+        from
+          article a,category c
+        where
+          a.cid=c.cid and
+          title like '%${key}%' and
+          deploy=0
+        order by top desc,`time` desc
+        limit #{startindex},#{pagesize};
+    </select>
+
+
+    <select id="queryTop4Articles" resultType="Article">
+        select
+          title,`time`,looked,likes,meta,`type`,artid,cname,author,c.cid,staticURL,top
+        from
+          article a,category c
+        where
+          a.cid=c.cid and
+          deploy=0
+        order by top desc,`time` desc
+        limit 0,4;
+    </select>
+
+    <select id="queryLast3Articles" resultType="Article">
+        select
+          title,`time`,artid,cid,staticURL
+        from
+          article
+        where
+          deploy=0
+        order by `time` desc
+        limit 0,3;
+    </select>
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coselding.hamster.dao.CommentDao">
+    <!-- 目的：为dao接口方法提供配置 -->
+    <insert id="saveComment" parameterType="Comment" useGeneratedKeys="true" keyProperty="comid">
+        insert into
+          comment
+          (comcontent,gid,artid,comtime)
+        values
+          (#{comcontent},#{gid},#{artid},#{comtime});
+    </insert>
+
+    <delete id="deleteComnent">
+        delete from comment where comid=#{comid};
+    </delete>
+
+    <update id="updateComment" parameterType="Comment">
+        update
+          comment
+        set
+          comcontent=#{comcontent},
+          artid=#{artid},
+          comtime=#{comtime}
+        where
+          comid=#{comid};
+    </update>
+
+    <select id="queryComment" resultType="Comment" parameterType="int">
+        select
+          *
+        from
+          comment
+        where comid=#{comid};
+    </select>
+
+    <select id="queryPassCount" resultType="int">
+        select count(*) from comment where pass=1;
+    </select>
+    <select id="getPassPageData" resultType="Comment">
+        select
+        *
+        from
+        comment com,guest g
+        where
+        com.gid=g.gid and
+        com.pass=1
+        order by com.comtime desc
+        limit #{startindex},#{pagesize};
+    </select>
+
+    <select id="queryWaitCount" resultType="int">
+        select count(*) from comment where pass=0;
+    </select>
+    <select id="getWaitPageData" resultType="Comment">
+        select
+          *
+        from
+          comment com,guest g
+        where
+          com.gid=g.gid and
+          com.pass=0
+        order by com.comtime desc
+        limit #{startindex},#{pagesize};
+    </select>
+
+    <select id="queryCount" resultType="int">
+        select count(*) from comment;
+    </select>
+    <select id="getPageData" resultType="Comment">
+        select
+          *
+        from
+          comment com,guest g
+        where
+          com.gid=g.gid
+        order by com.comtime desc
+        limit #{startindex},#{pagesize};
+    </select>
+
+    <select id="queryGuestCount" resultType="int">
+        select count(*) from comment where gid=#{gid};
+    </select>
+    <select id="getGuestPageData" resultType="Comment">
+        select
+          *
+        from
+          comment com,guest g
+        where
+          com.gid=g.gid and com.gid=#{gid}
+        order by com.comtime desc
+        limit #{startindex},#{pagesize};
+    </select>
+
+    <update id="setCommentPass">
+        update
+          comment
+        set
+          pass=#{pass}
+        where
+          comid=#{comid};
+    </update>
+</mapper>
