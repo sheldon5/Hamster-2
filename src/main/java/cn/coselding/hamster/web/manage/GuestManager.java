@@ -151,6 +151,11 @@ public class GuestManager implements ServletContextAware {
         //分页查询所有留言
         String url = contextPath + "/manage/guest/comments";
         Page<Comment> page = guestService.findGuestComments(query.pageNumValue(), url, gid);
+        for(Comment c:page.getList()){
+            if(c.getComcontent().length()>20){
+                c.setComcontent(c.getComcontent().substring(0,20)+"...");
+            }
+        }
         model.addAttribute("page", page);
         model.addAttribute("gid", gid);
         return "manage/comment-manage";

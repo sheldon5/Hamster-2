@@ -147,6 +147,11 @@ public class CommentManager implements ServletContextAware {
         //分页查询所有留言
         String url = contextPath + "/manage/comment/wait";
         Page<Comment> page = guestService.queryWaitPageComments(query.pageNumValue(), url);
+        for(Comment c:page.getList()){
+            if(c.getComcontent().length()>20){
+                c.setComcontent(c.getComcontent().substring(0,20)+"...");
+            }
+        }
         model.addAttribute("page", page);
         model.addAttribute("pageTitle", "待审核留言");
         return "manage/comment-manage";
@@ -159,6 +164,11 @@ public class CommentManager implements ServletContextAware {
         //分页查询所有留言
         String url = contextPath + "/manage/comment/";
         Page<Comment> page = guestService.queryPageComments(query.pageNumValue(), url);
+        for(Comment c:page.getList()){
+            if(c.getComcontent().length()>20){
+                c.setComcontent(c.getComcontent().substring(0,20)+"...");
+            }
+        }
         model.addAttribute("page", page);
         model.addAttribute("pageTitle", "留言管理");
         return "manage/comment-manage";
