@@ -438,7 +438,7 @@ function getMarkDownOptions(contextPath) {
         //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为 #fff
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-        imageUploadURL: contextPath + "/upload/markdown"
+        imageUploadURL: contextPath + "/manage/upload/markdown"
         /*
          上传的后台只需要返回一个 JSON 数据，结构如下：
          {
@@ -463,7 +463,7 @@ function initCKEditor(contextPath) {
         toolbar: 'Full',
         fullPage: false,//允许包含html标签
         //后台图片上传路径
-        filebrowserUploadUrl: contextPath + "/upload/ckeditor"
+        filebrowserUploadUrl: contextPath + "/manage/upload/ckeditor"
     });
 }
 //初始化editormd

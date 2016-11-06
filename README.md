@@ -1,4 +1,4 @@
-# Hamster
+# Hamster-2
 仿照Hexo的JavaWeb实现的静态博客网站，除了后台管理，博文编写和少部分的动态页面以外，游客访问博客网站均为静态页面，这个项目设计的初衷就是为低配置的服务器建立一个高并发的博客网站，整个架构的设计、框架选择都是尽可能的轻量。这也是这个项目取名Hamster（仓鼠）的原因，小巧可爱~
 
 >* 先定义两个概念：
@@ -23,25 +23,49 @@
 本博客除了前台html+css+js使用了第三方框架以及使用的开源jar包框架，均为本人原创开发，版权归本人所有，开源协议为Apache License 2.0.
 
 主页：
-![image](https://github.com/Coselding/Hamster/blob/master/screenshot/index.png)
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/index.png)
 
 文章列表：
-![image](https://github.com/Coselding/Hamster/blob/master/screenshot/list.png)
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/list.png)
 
 文章页面：
-![image](https://github.com/Coselding/Hamster/blob/master/screenshot/article.png)
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/view-article.png)
 
 留言板：
-![image](https://github.com/Coselding/Hamster/blob/master/screenshot/comment.png)
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/comment.png)
 
 RSS订阅
-![image](https://github.com/Coselding/Hamster/blob/master/screenshot/rss.png)
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/rss.png)
 
-后台管理1
-![image](https://github.com/Coselding/Hamster/blob/master/screenshot/back1.png)
+关于我
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/contact.png)
 
-后台管理2
-![image](https://github.com/Coselding/Hamster/blob/master/screenshot/back2.png)
+管理页面首页
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/manage.png)
+
+文章管理
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/article-manager.png)
+
+类别管理
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/category-manager.png)
+
+留言管理
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/comment-manager.png)
+
+客户管理
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/guest-manager.png)
+
+文章编辑1
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/article1.png)
+
+文章编辑2
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/article2.png)
+
+图片上传
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/image.png)
+
+模态框
+![image](https://github.com/Coselding/Hamster-2/blob/master/screenshot/modal.png)
 
 >* [使用教程](https://github.com/Coselding/Hamster/wiki/%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B "查看使用教程")
 >* [前端开发教程](https://github.com/Coselding/Hamster/wiki/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B "查看前端开发教程")

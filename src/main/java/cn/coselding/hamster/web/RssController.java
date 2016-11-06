@@ -44,7 +44,7 @@ public class RssController implements ServletContextAware {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String rssBlogUI1(Model model) {
         model.addAttribute("categories", articleService.getAllCategories());
-        return "rss.jsp";
+        return "rss";
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -60,7 +60,7 @@ public class RssController implements ServletContextAware {
         if (result.hasErrors()) {
             WebUtils.validateForm(result, model);
             model.addAttribute("gemail", rssEmailForm.getGemail());
-            return "rss.jsp";
+            return "rss";
         }
 
         visitorService.rss(rssEmailForm.getGemail(), GlobalCache.RSS_TRUE);
@@ -79,7 +79,7 @@ public class RssController implements ServletContextAware {
         if (result.hasErrors()) {
             WebUtils.validateForm(result, model);
             model.addAttribute("gemail", rssEmailForm.getGemail());
-            return "rss.jsp";
+            return "rss";
         }
 
         visitorService.rss(rssEmailForm.getGemail(), GlobalCache.RSS_FALSE);

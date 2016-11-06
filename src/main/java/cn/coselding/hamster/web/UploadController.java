@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by 宇强 on 2016/10/4 0004.
  */
 @Controller
-@RequestMapping("/upload")
+@RequestMapping("/manage/upload")
 public class UploadController implements ServletContextAware {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

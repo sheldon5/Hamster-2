@@ -118,7 +118,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <input class="btn btn-primary" type="button"
-                                       onclick="return uploadCustomerImage('${pageContext.request.contextPath}/upload/customer')"
+                                       onclick="return uploadCustomerImage('${pageContext.request.contextPath}/manage/upload/customer')"
                                        value="上传">
                             </div>
                         </div>
