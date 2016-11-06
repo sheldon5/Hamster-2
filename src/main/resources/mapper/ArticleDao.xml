@@ -121,7 +121,7 @@
     </select>
     <select id="getPageDataByCid" resultType="Article">
         select
-          artid,`time`,author,title,staticURL,a.cid,c.cname,top,looked,likes,c.cname,meta,deploy
+          artid,`time`,author,title,staticURL,a.cid,top,looked,likes,c.cname,meta,deploy
         from
           article a,category c
         where
