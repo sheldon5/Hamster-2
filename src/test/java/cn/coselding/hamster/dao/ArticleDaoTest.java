@@ -32,7 +32,7 @@ public class ArticleDaoTest {
         article.setType("原创");
         article.setUid(1);
         article.setCid(2);
-        //articleDao.saveArticle(article);
+        articleDao.saveArticle(article);
     }
 
     @Test
