@@ -1,6 +1,7 @@
 package cn.coselding.hamster.dao;
 
 import cn.coselding.hamster.domain.Guest;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,13 @@ public class GuestDaoTest {
     @Autowired
     private GuestDao guestDao;
 
+    @Ignore
     @Test
     public void testSaveGuest() throws Exception {
         Guest guest = new Guest();
         guest.setGemail("11@11.com");
         guest.setGname("gname");
-        //guestDao.saveGuest(guest);
+        guestDao.saveGuest(guest);
     }
 
     @Test
