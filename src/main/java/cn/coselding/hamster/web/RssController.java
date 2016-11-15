@@ -36,7 +36,6 @@ public class RssController implements ServletContextAware {
     private VisitorService visitorService;
     private String contextPath;
 
-    @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
     }

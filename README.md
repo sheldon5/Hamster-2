@@ -9,20 +9,20 @@
 >* 动态网页：后台管理部分，博文编写，各种后台元素的增删改查的管理员才能访问的部分，以及少部分的游客访问部分，如RSS订阅、浏览、留言、喜爱、文章列表、搜索等操作为该网站的动态网页部分。
 >* 静态网页：博客文章内容页面、主页等数据不易改变的部分设计为静态网页，并且，这些静态网页由于后台的编写导致的内容变化，其相关的其他网页也会自动进行相应的改变，这使得后台的维护更加方便，比如新增了一篇新文章，添加完成之后，静态主页也会相应的修改使其保持最新状态。
 
-##技术选型
->* 前端：
-jquery-2.2.1
-bootstrap-3.3.6（很自然的有自适应~）
+##技术选型  
+>* 前端：  
+jquery-2.2.1  
+bootstrap-3.3.6（很自然的有自适应~）  
 
->* 后端：
-mysql+c3p0+Mybatis+Spring+SpringMVC+JSP
+>* 后端：  
+mysql+c3p0+Mybatis+Spring+SpringMVC+JSP  
 
->* 其他
-日志系统：slf4j+logback
-markdown：markdown4j
-网页静态化模板引擎：freemarker
-表单校验框架：hibernate-validator
-项目构建工具：maven
+>* 其他  
+日志系统：slf4j+logback  
+markdown：markdown4j  
+网页静态化模板引擎：freemarker  
+表单校验框架：hibernate-validator  
+项目构建工具：maven  
 
 ##关于JavaWeb博客
 >[https://github.com/b3log/solo](https://github.com/b3log/solo "进去solo开源项目")这个目前最火的Java开源博客项目也是基于JavaWeb，但是本人对于其自行造了个轮子Latke，采用json对象作为整个系统中的弱数据类型的JavaBean模型只能是望而生畏，还加了个自行实现的轻量级的Spring来作为Ioc容器，只能说是大牛的特立独行尔等渣渣所不能及也，我这个项目呢，整个架构和企业级的设计基本一致，省去了学习solo这个项目所需要额外的学习成本，毕竟大家都忙，哪有那么多空学这个不常用的东西。。。当然，他的想法以及对效率的提高效果也是很好的，说不定以后整个互联网趋势会朝这个方向发展。

@@ -9,6 +9,7 @@ import java.util.List;
  * Created by 宇强 on 2016/3/12 0012.
  */
 public interface ArticleDao {
+
     //增
     int saveArticle(Article article);
 

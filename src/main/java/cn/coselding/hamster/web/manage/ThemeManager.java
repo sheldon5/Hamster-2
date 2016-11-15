@@ -32,7 +32,6 @@ public class ThemeManager implements ServletContextAware{
     private String contextPath;
     private String realRootPath;
 
-    @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath=servletContext.getContextPath();
         realRootPath=servletContext.getRealPath("/");
@@ -61,7 +60,7 @@ public class ThemeManager implements ServletContextAware{
     @ResponseBody
     public Map<String,Object> change(@RequestParam("name")String name,
                          Model model) {
-        Map<String,Object> res = new HashMap<>();
+        Map<String,Object> res = new HashMap<String,Object>();
         File theme = new File(realRootPath+"/WEB-INF/themes/"+name);
         if(!theme.exists()){
             res.put("state",0);
