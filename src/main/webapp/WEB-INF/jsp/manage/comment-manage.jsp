@@ -61,7 +61,7 @@
                                 <td>
                                     <a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/guest/comments?gid=${comment.gid}">${comment.gid}</a>
                                 </td>
-                                <td>${fn:escapeXml(comment.comcontent)}</td>
+                                <td><a href="javascript:getFullComcontent('${comment.comid}','${pageContext.request.contextPath}')">${fn:escapeXml(comment.comcontent)}</a></td>
                                 <td>
                                     <a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/article/${comment.artid}">${comment.artid}</a>
                                 </td>

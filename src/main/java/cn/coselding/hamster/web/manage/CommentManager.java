@@ -2,6 +2,7 @@ package cn.coselding.hamster.web.manage;
 
 import cn.coselding.hamster.domain.Comment;
 import cn.coselding.hamster.dto.CommentForm;
+import cn.coselding.hamster.dto.CommonMessage;
 import cn.coselding.hamster.dto.Page;
 import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.filter.LoginFilter;
@@ -172,6 +173,14 @@ public class CommentManager implements ServletContextAware {
         model.addAttribute("page", page);
         model.addAttribute("pageTitle", "留言管理");
         return "manage/comment-manage";
+    }
+
+    //查询单个留言
+    @RequestMapping(value = "/query")
+    @ResponseBody
+    public CommonMessage list(@RequestParam("comid")int comid) {
+        Comment comment = guestService.queryComment(comid);
+        return CommonMessage.success(comment);
     }
 
     //默认情况下，查询列表

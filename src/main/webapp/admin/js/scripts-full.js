@@ -621,6 +621,34 @@ function submitManageComment() {
     }
     return true;
 }
+//留言管理自动截取内容长度，过长...显示
+function shorten(comcontent, id) {
+    if (comcontent.length() > 20) {
+        id.html(comcontent.substr(0, 20) + "...");
+    } else {
+        id.html(comcontent);
+    }
+}
+//留言管理界面获取完整的留言内容
+function getFullComcontent(comid,contextPath) {
+    $.ajax({
+        url: contextPath+'/manage/comment/query?comid='+comid,
+        type: 'get',
+        success: function (res) {
+            var json = JSON.parse(res);
+            var status = json['status'];
+            var result = json['result'];
+            if(status['code']==0){
+                showMsgDialog(result['comcontent']);
+            }else{
+                showMsgDialog(status['reason']);
+            }
+        },
+        error:function (error) {
+            showMsgDialog("网络错误："+error);
+        }
+    });
+}
 
 /**
  * 客户管理界面脚本

@@ -43,14 +43,14 @@ function updateLookedAndLikes(lookedID, looked, likesID, likes) {
     likesEle.innerHTML = "<span class='glyphicon glyphicon-heart'></span> " + likes + " 喜爱";
 }
 //列表的like
-function like1(likeURL,artid) {
+function like1(likeURL, artid) {
     $.ajax({
         type: "GET",
         url: likeURL,
         success: function (art) {
             var looked = art['looked'];
             var likes = art['likes'];
-            updateLookedAndLikes1('looked-'+artid, looked, 'likes-'+artid, likes);
+            updateLookedAndLikes1('looked-' + artid, looked, 'likes-' + artid, likes);
         }
     });
 }
@@ -494,23 +494,23 @@ function deleteCommentConfirm(url, id) {
     return false;
 }
 //留言审核通过
-function passComment(url,comid){
+function passComment(url, comid) {
     $('#btn_pass_ok').click(function () {
         var pass = $('#passD').val();
         $.ajax({
-            url:url+'?comid='+comid+'&pass='+pass,
-            type:'post',
+            url: url + '?comid=' + comid + '&pass=' + pass,
+            type: 'post',
             success: function (res) {
-                if(res['state']==1){
-                    var id = '#comid-'+comid;
+                if (res['state'] == 1) {
+                    var id = '#comid-' + comid;
                     $(id).html(res['resMsg']);
                     showMsgDialog(res['message']);
-                }else {
+                } else {
                     showMsgDialog('留言设置失败！');
                 }
             },
             error: function (res) {
-                showMsgDialog('网络错误，错误信息为：'+res);
+                showMsgDialog('网络错误，错误信息为：' + res);
             }
         });
         $('#passDialog').modal('hide');
@@ -531,6 +531,34 @@ function submitManageComment() {
         return false;
     }
     return true;
+}
+//留言管理自动截取内容长度，过长...显示
+function shorten(comcontent, id) {
+    if (comcontent.length() > 20) {
+        id.html(comcontent.substr(0, 20) + "...");
+    } else {
+        id.html(comcontent);
+    }
+}
+//留言管理界面获取完整的留言内容
+function getFullComcontent(comid,contextPath) {
+    $.ajax({
+        url: contextPath+'/manage/comment/query?comid='+comid,
+        type: 'get',
+        success: function (res) {
+            var json = JSON.parse(res);
+            var status = json['status'];
+            var result = json['result'];
+            if(status['code']==0){
+                showMsgDialog(result['comcontent']);
+            }else{
+                showMsgDialog(status['reason']);
+            }
+        },
+        error:function (error) {
+            showMsgDialog("网络错误："+error);
+        }
+    });
 }
 
 /**
@@ -669,16 +697,16 @@ function staticIndexComfirm(url) {
 }
 
 //主题切换
-function theme(url,name) {
-    showComfirmDialog("切换主题",'确认切换主题为 ' + name + ' 吗？', function () {
+function theme(url, name) {
+    showComfirmDialog("切换主题", '确认切换主题为 ' + name + ' 吗？', function () {
         $.ajax({
-            url:url+'?name=' + name,
-            type:'get',
+            url: url + '?name=' + name,
+            type: 'get',
             success: function (res) {
                 showMsgDialog(res['message']);
             },
             error: function (error) {
-                showMsgDialog("网络错误，错误信息为："+error);
+                showMsgDialog("网络错误，错误信息为：" + error);
             }
         });
         dismissComfirmDialog();
@@ -686,7 +714,7 @@ function theme(url,name) {
 }
 
 //保存主题
-function saveTheme(){
+function saveTheme() {
     $('#btn_ok').click(function () {
         //ajax提交表单
         var option = {
