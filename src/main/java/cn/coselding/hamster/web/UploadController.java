@@ -65,9 +65,9 @@ public class UploadController implements ServletContextAware {
             String path = realRootPath + config.getUploadUrlImageCkeditor();
             filename = WebUtils.encodeFilename(filename);
             //hash打散文件
-            String savePath = WebUtils.encodePath(filename, path);
+            String savePath = WebUtils.encodePath(filename, config.getUploadImagePath());
             //文件持久化
-            File file = new File(path + File.separator + savePath);
+            File file = new File(config.getUploadImagePath() + File.separator + savePath);
             try {
                 upload.transferTo(file);
             } catch (IOException e) {
@@ -83,7 +83,7 @@ public class UploadController implements ServletContextAware {
             builder.append("window.parent.CKEDITOR.tools.callFunction(" +
                     callback + ",'" +
                     contextPath + config.getUploadUrlImageCkeditor() +
-                    "/" + savePath + "','')");
+                    "/" + filename + "','')");
             builder.append("</script>");
             logger.info("CKEDITOR图片上传成功");
         } else {//不符合要求，进行提示
@@ -114,9 +114,9 @@ public class UploadController implements ServletContextAware {
             String path = realRootPath + config.getUploadUrlImageCkeditor();
             filename = WebUtils.encodeFilename(filename);
             //hash打散文件
-            String savePath = WebUtils.encodePath(filename, path);
+            String savePath = WebUtils.encodePath(filename, config.getUploadImagePath());
             //文件持久化
-            File file = new File(path + File.separator + savePath);
+            File file = new File(config.getUploadImagePath() + File.separator + savePath);
             try {
                 upload.transferTo(file);
             } catch (IOException e) {
@@ -126,7 +126,7 @@ public class UploadController implements ServletContextAware {
 
             //反馈客户端
             logger.info("Markdown图片上传成功...：" + savePath);
-            return new MarkDownImageResult(1,"Markdown图片上传成功",contextPath+config.getUploadUrlImageCkeditor()+"/"+savePath);
+            return new MarkDownImageResult(1,"Markdown图片上传成功",contextPath+config.getUploadUrlImageCkeditor()+"/"+filename);
         } else {//不符合要求，进行提示
             logger.info("Markdown图片上传：后缀名不合法");
             return new MarkDownImageResult(0,"文件格式不正确（必须为.jpeg/.jpg/.gif/.bmp/.png文件）","");
@@ -155,9 +155,9 @@ public class UploadController implements ServletContextAware {
             String path = realRootPath + config.getUploadUrlImageCkeditor();
             filename = WebUtils.encodeFilename(filename);
             //hash打散文件
-            String savePath = WebUtils.encodePath(filename, path);
+            String savePath = WebUtils.encodePath(filename, config.getUploadImagePath());
             //文件持久化
-            File file = new File(path + File.separator + savePath);
+            File file = new File(config.getUploadImagePath() + File.separator + savePath);
             try {
                 upload.transferTo(file);
             } catch (IOException e) {
@@ -169,7 +169,7 @@ public class UploadController implements ServletContextAware {
 
             //反馈客户端
             result.put("state",1);
-            result.put("msg",contextPath+config.getUploadUrlImageCkeditor()+"/"+savePath);
+            result.put("msg",contextPath+config.getUploadUrlImageCkeditor()+"/"+filename);
             logger.info("自定义图片上传成功");
             return result;
         } else {//不符合要求，进行提示

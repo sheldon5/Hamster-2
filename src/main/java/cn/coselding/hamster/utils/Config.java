@@ -24,6 +24,7 @@ public class Config {
     private boolean modeDev=false;
     private String uploadUrlImageCkeditor;
     private boolean globalCacheEnable=false;
+    private String uploadImagePath;
 
     public Config(String congifFilename) {
         InputStream is = Config.class.getClassLoader().getResourceAsStream(congifFilename);
@@ -38,6 +39,7 @@ public class Config {
             modeDev = Boolean.parseBoolean(prop.getProperty("mode.dev"));
             uploadUrlImageCkeditor=prop.getProperty("uploadUrl.image.ckeditor");
             globalCacheEnable=Boolean.parseBoolean(prop.getProperty("global.cache.enable"));
+            uploadImagePath=prop.getProperty("upload.image.path");
             prop.clear();
             prop = null;
             logger.info("全局缓存初始化成功...");
@@ -86,5 +88,9 @@ public class Config {
 
     public String getUserEmail() {
         return userEmail;
+    }
+
+    public String getUploadImagePath() {
+        return uploadImagePath;
     }
 }

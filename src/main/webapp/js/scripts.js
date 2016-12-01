@@ -77,6 +77,7 @@ function refreshCategories(url,contextPath){
         url:url,
         type:'get',
         success: function (categories) {
+            categories = JSON.parse(categories);
             var html="";
             for(var i=0;i<categories.length;i++){
                 html+='<li class="list-group-item"><a href="'+contextPath+'/list?cid='+categories[i]['cid']+'">'+categories[i]['cname']+'('+categories[i]['count']+')</a></li>';

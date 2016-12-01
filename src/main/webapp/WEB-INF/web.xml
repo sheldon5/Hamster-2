@@ -136,10 +136,6 @@
   </filter>
   <filter-mapping>
     <filter-name>NoLoginFilter</filter-name>
-    <url-pattern>/upload/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>NoLoginFilter</filter-name>
     <url-pattern>/manage/*</url-pattern>
   </filter-mapping>
 
