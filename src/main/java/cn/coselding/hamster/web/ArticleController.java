@@ -31,7 +31,7 @@ public class ArticleController implements ServletContextAware {
         realRootPath = servletContext.getRealPath("/");
     }
 
-    @RequestMapping("/{year}/{month}/{day}/{title}/")
+    @RequestMapping("/{year}-{month}-{day}/{title}/")
     public String viewArticle(@PathVariable("year") String year,
                               @PathVariable("month") String month,
                               @PathVariable("day") String day,
@@ -40,9 +40,9 @@ public class ArticleController implements ServletContextAware {
         StringBuilder builder = new StringBuilder();
         builder.append("/article/")
                 .append(year)
-                .append("/")
+                .append("-")
                 .append(month)
-                .append("/")
+                .append("-")
                 .append(day)
                 .append("/")
                 .append(title.hashCode())

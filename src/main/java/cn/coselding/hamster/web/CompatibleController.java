@@ -7,11 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import javax.servlet.ServletContext;
+import java.io.File;
 
 /**向旧版本兼容Controller
  * Created by 宇强 on 2016/10/7 0007.
@@ -25,10 +27,12 @@ public class CompatibleController implements ServletContextAware{
     @Autowired
     private TemplateHandler templateHandler;
     private String contextPath;
+    private String realRootPath;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
+        realRootPath = servletContext.getRealPath("/");
     }
 
     //之前版本的网址兼容
@@ -38,7 +42,34 @@ public class CompatibleController implements ServletContextAware{
         Article article = visitorService.getArticleInfo(artid);
         TemplateHandler.ArticlePath artPath = templateHandler.getArticlePath(article);
         logger.warn("文章兼容网址转换成功...：title="+article.getTitle());
-        return "redirect:"+artPath.getUrlPath()+"/";
+        return "forward:"+artPath.getUrlPath()+"/";
+    }
+
+    @RequestMapping("/article/{year}/{month}/{day}/{title}/")
+    public String viewArticle(@PathVariable("year") String year,
+                              @PathVariable("month") String month,
+                              @PathVariable("day") String day,
+                              @PathVariable("title") String title,
+                              Model model) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("/article/")
+                .append(year)
+                .append("-")
+                .append(month)
+                .append("-")
+                .append(day)
+                .append("/")
+                .append(title.hashCode())
+                .append(".html");
+
+        File html = new File(realRootPath + builder.toString());
+        if (!html.exists()) {
+            model.addAttribute("message", "文章不存在");
+            model.addAttribute("url", contextPath + "/");
+            return "message";
+        }
+
+        return "forward:" + builder.toString();
     }
 
     //之前旧版主页

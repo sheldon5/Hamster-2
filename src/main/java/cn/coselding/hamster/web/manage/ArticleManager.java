@@ -301,7 +301,7 @@ public class ArticleManager implements ServletContextAware {
     }
 
     //查看单篇文章
-    @RequestMapping(value = "/{year}/{month}/{day}/{title}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{year}-{month}-{day}/{title}/", method = RequestMethod.GET)
     public String queryArticle(@PathVariable("title") String title,
                                @PathVariable("year") String year,
                                @PathVariable("month") String month,
