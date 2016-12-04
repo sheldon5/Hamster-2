@@ -180,6 +180,7 @@ public class CommentManager implements ServletContextAware {
     @ResponseBody
     public CommonMessage list(@RequestParam("comid")int comid) {
         Comment comment = guestService.queryComment(comid);
+        System.out.println(comment);
         return CommonMessage.success(comment);
     }
 

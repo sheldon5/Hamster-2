@@ -546,9 +546,8 @@ function getFullComcontent(comid,contextPath) {
         url: contextPath+'/manage/comment/query?comid='+comid,
         type: 'get',
         success: function (res) {
-            var json = JSON.parse(res);
-            var status = json['status'];
-            var result = json['result'];
+            var status = res['status'];
+            var result = res['result'];
             if(status['code']==0){
                 showMsgDialog(result['comcontent']);
             }else{
