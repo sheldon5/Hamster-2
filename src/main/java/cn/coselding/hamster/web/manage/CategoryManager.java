@@ -35,11 +35,9 @@ public class CategoryManager implements ServletContextAware {
     @Autowired
     private ArticleService articleService;
     private String contextPath;
-    private String realRootPath;
 
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("/");
     }
 
     //添加类别界面

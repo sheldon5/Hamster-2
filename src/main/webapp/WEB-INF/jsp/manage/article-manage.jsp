@@ -1,4 +1,4 @@
-<%--
+ <%--
   Created by IntelliJ IDEA.
   User: 宇强
   Date: 2016/10/4 0004
@@ -65,7 +65,7 @@
                         <c:forEach items="${page.list}" var="art">
                         <tr>
                             <td>${art.artid}</td>
-                            <td><a style="color:#0000ff" href="${pageContext.request.contextPath}${art.staticURL}/">${fn:escapeXml(art.title)}</a></td>
+                            <td><a style="color:#0000ff" href="${pageContext.request.contextPath}${art.staticURL}">${fn:escapeXml(art.title)}</a></td>
                             <td>${fn:escapeXml(art.author)}</td>
                             <td>${fn:replace(art.showtime,'T',' ')}</td>
                             <td><a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/article/list?cid=${art.cid}">${fn:escapeXml(art.cname)}</a>

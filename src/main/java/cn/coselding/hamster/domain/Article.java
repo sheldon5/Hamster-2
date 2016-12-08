@@ -33,6 +33,7 @@ public class Article {
     private String md;
     private int editor;
     private int deploy;
+    private String urlTitle;
 
     public int getEditor() {
         return editor;
@@ -102,6 +103,10 @@ public class Article {
         this.deploy = deploy;
     }
 
+    public String getUrlTitle() {
+        return urlTitle;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
@@ -123,7 +128,12 @@ public class Article {
                 ", md='" + md + '\'' +
                 ", editor=" + editor +
                 ", deploy=" + deploy +
+                ", urlTitle='" + urlTitle + '\'' +
                 '}';
+    }
+
+    public void setUrlTitle(String urlTitle) {
+        this.urlTitle = urlTitle;
     }
 
     public int getArtid() {

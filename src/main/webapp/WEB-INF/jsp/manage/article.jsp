@@ -57,6 +57,12 @@
                             <span>${errors.title}</span>
                         </div>
                         <div class="form-group">
+                            <label for="urlTitle">文章URL标题：</label>
+                            <input type="text" class="form-control" name="urlTitle" id="urlTitle"
+                                   value="${fn:escapeXml(article.urlTitle)}">
+                            <span>${errors.urlTitle}</span>
+                        </div>
+                        <div class="form-group">
                             <label for="cid">类别：</label>
                             <select class="form-control" id="cid" name="cid">
                                 <c:forEach items="${categories}" var="cate">

@@ -90,7 +90,7 @@
                     <span class="likes"><a id="likes-${art.artid}" href="#" class="likeThis"><i class="icon-heart-empty"></i> ${art.likes}</a></span>
                     <span class="comments"><a id="looked-${art.artid}" href="#"><i class="icon-eye-open"></i> ${art.looked}</a></span>
                 </div>
-                <h1 class="title"><a href="${contextPath}${art.staticURL}/">${art.title}</a></h1>
+                <h1 class="title"><a href="${contextPath}${art.staticURL}">${art.title}</a></h1>
                 <p>${art.meta}</p>
                 <div class="tags"><a href="#">${art.type}</a></div>
                 <div class="post-nav">
@@ -113,7 +113,7 @@
                 <#list lastArticlesList as art>
                     <li>
                         <div class="meta">
-                            <h5><a href="${contextPath}${art.staticURL}/">${art.title}</a></h5>
+                            <h5><a href="${contextPath}${art.staticURL}">${art.title}</a></h5>
                             <em>${art.time?string("yyyy-MM-dd HH:mm")}</em>
                         </div>
                     </li>

@@ -45,6 +45,7 @@ CREATE TABLE article
   md LONGTEXT,
   editor int DEFAULT 0,
   deploy int DEFAULT 0,
+  urlTitle varchar(100),
   INDEX index_article_artid (artid),
   INDEX index_article_uid (uid),
   INDEX index_article_cid (cid),

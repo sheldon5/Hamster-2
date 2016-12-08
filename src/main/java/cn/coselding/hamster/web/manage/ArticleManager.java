@@ -311,14 +311,14 @@ public class ArticleManager implements ServletContextAware {
                                @PathVariable("day") String day,
                                Model model) {
         String path = "/article/" + year + "/" + month + "/" + day + "/";
-        File html = new File(config.getStaticArticlePath() + path + title.hashCode() + ".html");
+        File html = new File(config.getStaticArticlePath() + path + title + ".html");
         if (!html.exists()) {
             model.addAttribute("message", "文章不存在");
             model.addAttribute("url", contextPath + "/");
             return "message";
         }
         //找得到文章，显示给浏览器
-        return "forward:" + path + title.hashCode() + ".html";
+        return "forward:" + path + title + ".html";
     }
 
     @RequestMapping("/{artid}")
@@ -332,14 +332,14 @@ public class ArticleManager implements ServletContextAware {
         }
 
         TemplateHandler.ArticlePath path = templateHandler.getArticlePath(article);
-        File html = new File(config.getStaticArticlePath() + path.getFilePath() + ".html");
+        File html = new File(config.getStaticArticlePath() + path.getFilePath());
         if (!html.exists()) {
             model.addAttribute("message", "文章不存在");
             model.addAttribute("url", contextPath + "/");
             return "message";
         }
         //找得到文章，显示给浏览器
-        return "forward:" + path.getUrlPath() + "/";
+        return "forward:" + path.getUrlPath();
     }
 
     //重新静态化文章

@@ -45,7 +45,7 @@ public class CompatibleController implements ServletContextAware{
         Article article = visitorService.getArticleInfo(artid);
         TemplateHandler.ArticlePath artPath = templateHandler.getArticlePath(article);
         logger.warn("文章兼容网址转换成功...：title="+article.getTitle());
-        return "forward:"+artPath.getUrlPath()+"/";
+        return "redirect:"+artPath.getUrlPath();
     }
 
     @RequestMapping("/article/{year}/{month}/{day}/{title}/")
@@ -62,7 +62,7 @@ public class CompatibleController implements ServletContextAware{
                 .append("-")
                 .append(day)
                 .append("/")
-                .append(title.hashCode())
+                .append(title)
                 .append(".html");
 
         File html = new File(config.getStaticArticlePath() + builder.toString());

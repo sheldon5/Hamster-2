@@ -7,47 +7,51 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.time.Clock;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by 宇强 on 2016/10/6 0006.
  */
 public class ArticleForm implements Serializable {
 
-    @Length(min = 1,message = "{Length.articleForm.title}")
+    @Length(min = 1, message = "{Length.articleForm.title}")
     private String title;
-    @Length(min = 1,message = "{Length.articleForm.type}")
+    @Length(min = 1, message = "{Length.articleForm.type}")
     private String type;
     private String artid;
     private String cid;
-    @Length(min = 1,message = "{Length.articleForm.content}")
+    @Length(min = 1, message = "{Length.articleForm.content}")
     private String content;
-    @Pattern(regexp = "[0-9]{1,4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}",message = "{Pattern.articleForm.showtime}")
+    @Pattern(regexp = "[0-9]{1,4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}", message = "{Pattern.articleForm.showtime}")
     private String showtime;
-    @Length(min = 1,message = "{Length.articleForm.content}")
+    @Length(min = 1, message = "{Length.articleForm.content}")
     private String md;
-    @Pattern(regexp="[0-9]+",message = "{Pattern.articleForm.editor}")
+    @Pattern(regexp = "[0-9]+", message = "{Pattern.articleForm.editor}")
     private String editor;
     private String top;
     private String meta;
     private String deploy;
+    @Length(min = 1, message = "{Length.articleForm.urlTitle}")
+    private String urlTitle;
 
-    public ArticleForm(){
+    public ArticleForm() {
         setDefault();
     }
 
-    public void setDefault(){
-        type="原创";
-        showtime = Clock.systemUTC().instant().toString();
-        top="0";
-        editor="0";
-        deploy="1";
-        title=null;
-        content=null;
-        artid=null;
-        cid=null;
-        md=null;
-        meta=null;
+    public void setDefault() {
+        type = "原创";
+        showtime = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss").format(new Date());
+        top = "0";
+        editor = "0";
+        deploy = "1";
+        title = null;
+        content = null;
+        artid = null;
+        cid = null;
+        md = null;
+        meta = null;
+        urlTitle = null;
     }
 
     public String getDeploy() {
@@ -138,6 +142,14 @@ public class ArticleForm implements Serializable {
         this.meta = meta;
     }
 
+    public String getUrlTitle() {
+        return urlTitle;
+    }
+
+    public void setUrlTitle(String urlTitle) {
+        this.urlTitle = urlTitle;
+    }
+
     @Override
     public String toString() {
         return "ArticleForm{" +
@@ -152,22 +164,24 @@ public class ArticleForm implements Serializable {
                 ", top='" + top + '\'' +
                 ", meta='" + meta + '\'' +
                 ", deploy='" + deploy + '\'' +
+                ", urlTitle='" + urlTitle + '\'' +
                 '}';
     }
 
     public String serialParams() {
         try {
-            return "title=" + (title==null?"":URLEncoder.encode(title,"UTF-8")) +
-                    "&type=" + (type==null?"":URLEncoder.encode(type,"UTF-8")) +
+            return "title=" + (title == null ? "" : URLEncoder.encode(title, "UTF-8")) +
+                    "&type=" + (type == null ? "" : URLEncoder.encode(type, "UTF-8")) +
                     "&artid=" + artid +
                     "&cid=" + cid +
-                    "&content=" + (content==null?"":URLEncoder.encode(content,"UTF-8")) +
+                    "&content=" + (content == null ? "" : URLEncoder.encode(content, "UTF-8")) +
                     "&showtime=" + showtime +
-                    "&md=" + (md==null?"":URLEncoder.encode(md,"UTF-8")) +
+                    "&md=" + (md == null ? "" : URLEncoder.encode(md, "UTF-8")) +
                     "&editor=" + editor +
                     "&top=" + top +
                     "&deploy=" + deploy +
-                    "&meta=" + (meta==null?"":URLEncoder.encode(meta,"UTF-8"));
+                    "&meta=" + (meta == null ? "" : URLEncoder.encode(meta, "UTF-8")) +
+                    "&urlTitle=" + (urlTitle == null ? "" : urlTitle);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

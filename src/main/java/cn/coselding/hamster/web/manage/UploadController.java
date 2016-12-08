@@ -33,12 +33,10 @@ public class UploadController implements ServletContextAware {
     @Autowired
     private Config config;
     private String contextPath;
-    private String realRootPath;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("/");
     }
 
     //CKEditor图片上传
@@ -62,7 +60,6 @@ public class UploadController implements ServletContextAware {
             }
 
             //合成服务器路径
-            String path = realRootPath + config.getUploadUrlImageCkeditor();
             filename = WebUtils.encodeFilename(filename);
             //hash打散文件
             String savePath = WebUtils.encodePath(filename, config.getUploadImagePath());
@@ -111,7 +108,6 @@ public class UploadController implements ServletContextAware {
             }
 
             //合成服务器路径
-            String path = realRootPath + config.getUploadUrlImageCkeditor();
             filename = WebUtils.encodeFilename(filename);
             //hash打散文件
             String savePath = WebUtils.encodePath(filename, config.getUploadImagePath());
@@ -152,7 +148,6 @@ public class UploadController implements ServletContextAware {
             }
 
             //合成服务器路径
-            String path = realRootPath + config.getUploadUrlImageCkeditor();
             filename = WebUtils.encodeFilename(filename);
             //hash打散文件
             String savePath = WebUtils.encodePath(filename, config.getUploadImagePath());

@@ -40,13 +40,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <a href="${pageContext.request.contextPath}${art.staticURL}/">
+                        <a href="${pageContext.request.contextPath}${art.staticURL}">
                             <font color="#c9302c">${art.top==1?'<span class="glyphicon glyphicon-star"></span> [顶]':''}</font>
                                 ${fn:escapeXml(art.title)}
                         </a>
                     </h3>
                 </div>
-                <a href="${pageContext.request.contextPath}${art.staticURL}/">
+                <a href="${pageContext.request.contextPath}${art.staticURL}">
                     <div class="panel-body">
                         <p>
                         <p>${art.meta}
@@ -96,7 +96,7 @@
                 <c:forEach items="${params.lastArticlesList}" var="art">
                     <li class="list-group-item">
                         <div class="list-group-item-heading text-left">
-                            <h5><a href="${pageContext.request.contextPath}${art.staticURL}/">${fn:escapeXml(art.title)}</a></h5>
+                            <h5><a href="${pageContext.request.contextPath}${art.staticURL}">${fn:escapeXml(art.title)}</a></h5>
                         </div>
                         <div class="list-group-item-text text-right">
                             <em><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate></em>

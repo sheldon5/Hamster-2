@@ -56,7 +56,7 @@
                     <div style="color: red;">
                         <font color="red">${art.top==1?'[顶置]':''}</font>
                     </div>
-                    <a href="${pageContext.request.contextPath}${art.staticURL}/">${art.title}</a>
+                    <a href="${pageContext.request.contextPath}${art.staticURL}">${art.title}</a>
                 </h1>
 
                 <p>${art.meta}</p>
@@ -98,7 +98,7 @@
                 <c:forEach items="${params.lastArticlesList}" var="art">
                     <li>
                         <div class="meta">
-                            <h5><a href="${pageContext.request.contextPath}${art.staticURL}/">${art.title}</a></h5>
+                            <h5><a href="${pageContext.request.contextPath}${art.staticURL}">${art.title}</a></h5>
                             <em><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate></em>
                         </div>
                     </li>

@@ -2,10 +2,13 @@ package cn.coselding.hamster.service.impl;
 
 import cn.coselding.hamster.dto.Theme;
 import cn.coselding.hamster.service.ThemeService;
+import cn.coselding.hamster.utils.Config;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.ServletContext;
 import java.io.*;
 import java.util.*;
@@ -22,6 +25,8 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     private String themeName;
     private String realRootPath;
     private String contextPath;
+    @Autowired
+    private Config config;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
@@ -40,13 +45,13 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
                 fis = new FileInputStream(file);
                 p.load(fis);
                 //加载配置文件中的配置信息
-                prop.put("theme.dir.ftl", (String) p.getOrDefault("theme.dir.ftl", "/WEB-INF/ftl"));
-                prop.put("theme.dir.jsp", (String) p.getOrDefault("theme.dir.jsp", "/WEB-INF/jsp"));
-                prop.put("theme.dir.css", (String) p.getOrDefault("theme.dir.css", "/css"));
-                prop.put("theme.dir.js", (String) p.getOrDefault("theme.dir.js", "/js"));
-                prop.put("theme.dir.fonts", (String) p.getOrDefault("theme.dir.fonts", "/fonts"));
-                prop.put("theme.dir.images", (String) p.getOrDefault("theme.dir.images", "/images"));
-                prop.put("theme.dir.public", (String) p.getOrDefault("theme.dir.public", "/public"));
+                prop.put("theme.dir.ftl", p.getProperty("theme.dir.ftl", "/WEB-INF/ftl"));
+                prop.put("theme.dir.jsp", p.getProperty("theme.dir.jsp", "/WEB-INF/jsp"));
+                prop.put("theme.dir.css", p.getProperty("theme.dir.css", "/css"));
+                prop.put("theme.dir.js", p.getProperty("theme.dir.js", "/js"));
+                prop.put("theme.dir.fonts", p.getProperty("theme.dir.fonts", "/fonts"));
+                prop.put("theme.dir.images", p.getProperty("theme.dir.images", "/images"));
+                prop.put("theme.dir.public", p.getProperty("theme.dir.public", "/public"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
@@ -142,7 +147,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     //复制css
     private ThemeServiceImpl copyCss(int flag) {
         String src = realRootPath + "/WEB-INF/themes/" + themeName + prop.get("theme.dir.css");
-        String dest = realRootPath + "/css";
+        String dest = config.getStaticIndexPath() + "/css";
         File srcFile = new File(src);
         File destFile = new File(dest);
         if (flag == ADD) {
@@ -156,7 +161,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     //复制js
     private ThemeServiceImpl copyJs(int flag) {
         String src = realRootPath + "/WEB-INF/themes/" + themeName + prop.get("theme.dir.js");
-        String dest = realRootPath + "/js";
+        String dest = config.getStaticIndexPath() + "/js";
         File srcFile = new File(src);
         File destFile = new File(dest);
         if (flag == ADD) {
@@ -170,7 +175,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     //复制图片
     private ThemeServiceImpl copyIamges(int flag) {
         String src = realRootPath + "/WEB-INF/themes/" + themeName + prop.get("theme.dir.images");
-        String dest = realRootPath + "/images";
+        String dest = config.getStaticIndexPath() + "/images";
         File srcFile = new File(src);
         File destFile = new File(dest);
         if (flag == ADD) {
@@ -184,7 +189,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     //复制字体
     private ThemeServiceImpl copyFonts(int flag) {
         String src = realRootPath + "/WEB-INF/themes/" + themeName + prop.get("theme.dir.fonts");
-        String dest = realRootPath + "/fonts";
+        String dest = config.getStaticIndexPath() + "/fonts";
         File srcFile = new File(src);
         File destFile = new File(dest);
         if (flag == ADD) {
@@ -198,7 +203,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     //复制public
     private ThemeService copyPublic(int flag) {
         String src = realRootPath + "/WEB-INF/themes/" + themeName + prop.get("theme.dir.public");
-        String dest = realRootPath + "/public";
+        String dest = config.getStaticIndexPath() + "/public";
         File srcFile = new File(src);
         File destFile = new File(dest);
         if (flag == ADD) {
@@ -213,7 +218,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     @Override
     public void copyDir(File srcFile, File destFile) {
         File[] files = srcFile.listFiles();
-        if(files!=null&&files.length>0) {
+        if (files != null && files.length > 0) {
             for (File file : files) {
                 if (file.isFile()) {
                     //复制文件
@@ -293,7 +298,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
     @Override
     public List<Theme> queryAllThemes(File parent) {
         File[] files = parent.listFiles();
-        File dir = new File(realRootPath + "/upload/themes/");
+        File dir = new File(config.getStaticIndexPath() + "/upload/themes/");
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -302,7 +307,7 @@ public class ThemeServiceImpl implements ServletContextAware, cn.coselding.hamst
             if (th.isDirectory()) {
                 Theme theme = new Theme();
                 //复制logo图片
-                File img = new File(th.getAbsolutePath() + "/default.jpg");
+                File img = new File(th.getAbsolutePath() + "/logo.jpg");
                 if (img.exists()) {
                     copyFile(img, new File(dir.getAbsolutePath() + "/" + th.getName()));
                     theme.setLogo(contextPath + "/upload/themes/" + th.getName() + "/default.jpg");

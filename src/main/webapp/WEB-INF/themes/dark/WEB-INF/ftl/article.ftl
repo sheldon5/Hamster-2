@@ -110,12 +110,12 @@
         </div>
         <div class="last-next">
             <div>
-                <a href="${contextPath}${lastArticle.staticURL}/" title="上一篇">
+                <a href="${contextPath}${lastArticle.staticURL}" title="上一篇">
                     <i class="icon-double-angle-left"></i>${lastArticle.title}
                 </a>
             </div>
             <div>
-                <a href="${contextPath}${nextArticle.staticURL}/" title="下一篇">
+                <a href="${contextPath}${nextArticle.staticURL}" title="下一篇">
                     <i class="icon-double-angle-right"></i>${nextArticle.title}
                 </a>
             </div>

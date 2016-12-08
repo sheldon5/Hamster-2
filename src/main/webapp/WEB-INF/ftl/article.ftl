@@ -137,12 +137,12 @@
                 </div>
                 <div class="panel-body">
                     <div class="text-left">
-                        <a href="${contextPath}${lastArticle.staticURL}/" title="上一篇">
+                        <a href="${contextPath}${lastArticle.staticURL}" title="上一篇">
                             &laquo;${lastArticle.title}
                         </a>
                     </div>
                     <div class="text-right">
-                        <a href="${contextPath}${nextArticle.staticURL}/" title="下一篇">
+                        <a href="${contextPath}${nextArticle.staticURL}" title="下一篇">
                             ${nextArticle.title}&raquo;
                         </a>
                     </div>
@@ -161,7 +161,7 @@
                 <#list lastArticlesList as la>
                     <li class="list-group-item">
                         <div class="list-group-item-heading text-left">
-                            <h5><a href="${contextPath}${la.staticURL}/">${la.title}</a></h5>
+                            <h5><a href="${contextPath}${la.staticURL}">${la.title}</a></h5>
                         </div>
                         <div class="list-group-item-text text-right">
                             <em>${la.time?string("yyyy-MM-dd HH:mm")}</em>

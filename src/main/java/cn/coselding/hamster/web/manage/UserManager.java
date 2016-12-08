@@ -36,11 +36,9 @@ public class UserManager implements ServletContextAware {
     @Autowired
     private UserService userService;
     private String contextPath;
-    private String realRootPath;
 
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("");
     }
 
     //添加用户界面

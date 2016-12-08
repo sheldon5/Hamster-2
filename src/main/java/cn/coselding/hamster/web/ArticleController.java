@@ -49,7 +49,7 @@ public class ArticleController implements ServletContextAware {
                 .append("-")
                 .append(day)
                 .append("/")
-                .append(title.hashCode())
+                .append(title)
                 .append(".html");
 
         File html = new File(config.getStaticArticlePath() + builder.toString());

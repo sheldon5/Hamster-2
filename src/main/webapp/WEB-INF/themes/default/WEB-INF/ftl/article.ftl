@@ -137,12 +137,12 @@
                 </div>
                 <div class="panel-body">
                     <div class="text-left">
-                        <a href="${contextPath}${lastArticle.staticURL}/" title="上一篇">
+                        <a href="${contextPath}${lastArticle.staticURL}" title="上一篇">
                             &laquo;${lastArticle.title}
                         </a>
                     </div>
                     <div class="text-right">
-                        <a href="${contextPath}${nextArticle.staticURL}/" title="下一篇">
+                        <a href="${contextPath}${nextArticle.staticURL}" title="下一篇">
                             ${nextArticle.title}&raquo;
                         </a>
                     </div>

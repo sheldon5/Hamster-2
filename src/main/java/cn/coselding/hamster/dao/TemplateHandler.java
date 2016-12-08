@@ -68,7 +68,7 @@ public class TemplateHandler implements ServletContextAware {
         //文章路径
         ArticlePath articlePath = getArticlePath(article);
         //文章文件绝对路径
-        String filePath = realRootPath + articlePath.getFilePath() + ".html";
+        String filePath = realRootPath + articlePath.getFilePath();
         //文章文件的父文件夹路径
         String dirPath = realRootPath + "/article" + formatDate(article.getTime());
         try {
@@ -94,14 +94,14 @@ public class TemplateHandler implements ServletContextAware {
     }
 
     public ArticlePath getArticlePath(Article article) {
-        return new ArticlePath("/article" + formatDate(article.getTime()) + article.getTitle().hashCode(),
-                            "/article" + formatDate(article.getTime()) + article.getTitle()
+        return new ArticlePath("/article" + formatDate(article.getTime()) + article.getUrlTitle() + ".html",
+                            "/article" + formatDate(article.getTime()) + article.getUrlTitle() + ".html"
         );
     }
 
     public String getArticleEncoderPath(Article article) {
         try {
-            return "/article" + formatDate(article.getTime()) + URLEncoder.encode(article.getTitle(), "UTF-8");
+            return "/article" + formatDate(article.getTime()) + URLEncoder.encode(article.getTitle(), "UTF-8") + ".html";
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

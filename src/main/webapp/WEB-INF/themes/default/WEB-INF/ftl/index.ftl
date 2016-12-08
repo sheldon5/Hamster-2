@@ -95,7 +95,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <a href="${contextPath}${art.staticURL}/">
+                        <a href="${contextPath}${art.staticURL}">
                         <#if art.top==1>
                             <font color="#c9302c"><span class="glyphicon glyphicon-star"></span> [顶]</font>
                         <#else>
@@ -104,7 +104,7 @@
                         </a>
                     </h3>
                 </div>
-                <a href="${contextPath}${art.staticURL}/">
+                <a href="${contextPath}${art.staticURL}">
                     <div class="panel-body">
                         <p>
                         <p>${art.meta}
@@ -160,7 +160,7 @@
                 <#list lastArticlesList as art>
                     <li class="list-group-item">
                         <div class="list-group-item-heading text-left">
-                            <h5><a href="${contextPath}${art.staticURL}/">${art.title}</a></h5>
+                            <h5><a href="${contextPath}${art.staticURL}">${art.title}</a></h5>
                         </div>
                         <div class="list-group-item-text text-right">
                             <em>${art.time?string("yyyy-MM-dd HH:mm")}</em>

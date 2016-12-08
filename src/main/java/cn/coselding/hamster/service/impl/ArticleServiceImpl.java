@@ -168,7 +168,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
         //删除数据库记录
         articleDao.deleteArticle(artid);
         //删除静态化文件
-        String path = saveRootPath + article.getStaticURL() + ".html";
+        String path = saveRootPath + article.getStaticURL();
         //System.out.println("path -->> "+path);
         File file = new File(path);
         if (file.exists()) {
@@ -492,12 +492,16 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
             //遍历页中的所有文章
             for (Article article : arts) {
                 //更新格式化文章内容
-                if(article.getContent()!=null&&article.getContent().length()>0) {
+                if (article.getContent() != null && article.getContent().length() > 0) {
                     article.setContent(ServiceUtils.removeHtml(article.getContent()));
                 }
                 //格式化meta
                 String meta = WebUtils.getArticleMeta(article, markdown4jProcessor);
                 article.setMeta(ServiceUtils.staticImageSize(meta));
+                //历史原因，urlTitle为空的用hashcode取代
+                if (article.getUrlTitle() == null || article.getUrlTitle().length() < 1) {
+                    article.setUrlTitle(article.getTitle().hashCode() + "");
+                }
                 articleDao.updateArticle(article);
             }
         }

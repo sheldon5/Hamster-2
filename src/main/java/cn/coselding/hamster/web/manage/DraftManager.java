@@ -9,6 +9,7 @@ import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.filter.LoginFilter;
 import cn.coselding.hamster.service.ArticleService;
 import cn.coselding.hamster.service.DraftService;
+import cn.coselding.hamster.utils.Config;
 import cn.coselding.hamster.utils.WebUtils;
 import org.markdown4j.Markdown4jProcessor;
 import org.slf4j.Logger;
@@ -45,12 +46,12 @@ public class DraftManager implements ServletContextAware{
     @Autowired
     private Markdown4jProcessor markdown4jProcessor;
     private String contextPath;
-    private String realRootPath;
+    @Autowired
+    private Config config;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath=servletContext.getContextPath();
-        realRootPath=servletContext.getRealPath("/");
     }
 
     //添加文章界面
@@ -125,7 +126,7 @@ public class DraftManager implements ServletContextAware{
             //保存草稿
             draftService.addDraft(draft);
         } else {
-            articleService.addArticle(draft,contextPath,realRootPath);
+            articleService.addArticle(draft,contextPath,config.getStaticArticlePath());
         }
 
         //删除草稿
@@ -208,7 +209,7 @@ public class DraftManager implements ServletContextAware{
             //保存草稿
             draftService.updateDraft(draft);
         } else {
-            articleService.updateArticle(draft,contextPath,realRootPath);
+            articleService.updateArticle(draft,contextPath,config.getStaticArticlePath());
         }
 
         model.addAttribute("message", "草稿修改成功！！！");
@@ -267,7 +268,7 @@ public class DraftManager implements ServletContextAware{
         Article draft = draftService.queryDraft(artid);
         draft.setDeploy(0);
         //发布还要静态化
-        articleService.updateArticle(draft,contextPath,realRootPath);
+        articleService.updateArticle(draft,contextPath,config.getStaticArticlePath());
         logger.info("草稿发布成功...artid=" + artid);
         return "redirect:/manage/draft/";
     }

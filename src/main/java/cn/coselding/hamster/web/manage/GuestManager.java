@@ -39,12 +39,10 @@ public class GuestManager implements ServletContextAware {
     @Autowired
     private GuestService guestService;
     private String contextPath;
-    private String realRootPath;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("");
     }
 
     //添加客户界面
