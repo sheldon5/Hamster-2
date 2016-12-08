@@ -172,27 +172,27 @@
   <!--</error-page>-->
   <!--<error-page>-->
     <!--<error-code>500</error-code>-->
-    <!--<location>/public/500.html</location>-->
+    <!--<location>/public/50x.html</location>-->
   <!--</error-page>-->
   <!--<error-page>-->
     <!--<error-code>501</error-code>-->
-    <!--<location>/public/500.html</location>-->
+    <!--<location>/public/50x.html</location>-->
   <!--</error-page>-->
   <!--<error-page>-->
     <!--<error-code>502</error-code>-->
-    <!--<location>/public/500.html</location>-->
+    <!--<location>/public/50x.html</location>-->
   <!--</error-page>-->
   <!--<error-page>-->
     <!--<error-code>503</error-code>-->
-    <!--<location>/public/500.html</location>-->
+    <!--<location>/public/50x.html</location>-->
   <!--</error-page>-->
   <!--<error-page>-->
     <!--<error-code>504</error-code>-->
-    <!--<location>/public/500.html</location>-->
+    <!--<location>/public/50x.html</location>-->
   <!--</error-page>-->
   <!--<error-page>-->
     <!--<error-code>505</error-code>-->
-    <!--<location>/public/500.html</location>-->
+    <!--<location>/public/50x.html</location>-->
   <!--</error-page>-->
 
   <welcome-file-list>
