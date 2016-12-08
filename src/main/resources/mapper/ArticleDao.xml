@@ -178,4 +178,8 @@
         order by `time` desc
         limit 0,3;
     </select>
+
+    <select id="queryInfoByName" resultType="Article">
+        select artid,looked,likes,time,staticURL,title,urlTitle from article where title=#{title};
+    </select>
 </mapper>

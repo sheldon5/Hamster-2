@@ -38,4 +38,6 @@ public interface VisitorService {
 
     //获取最新的三篇文章
     List<Article> getLast3Articles();
+
+    Article findArticleByTitle(String title);
 }

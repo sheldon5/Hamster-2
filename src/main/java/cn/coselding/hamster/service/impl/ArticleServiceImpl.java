@@ -10,6 +10,7 @@ import cn.coselding.hamster.domain.Guest;
 import cn.coselding.hamster.dto.Page;
 import cn.coselding.hamster.email.JavaMailWithAttachment;
 import cn.coselding.hamster.exception.ForeignKeyException;
+import cn.coselding.hamster.service.ArticleService;
 import cn.coselding.hamster.utils.*;
 import cn.coselding.hamster.web.manage.ArticleManager;
 import org.markdown4j.Markdown4jProcessor;
@@ -32,7 +33,7 @@ import java.util.Map;
  * Created by 宇强 on 2016/3/12 0012.
  */
 @Service
-public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleService {
+public class ArticleServiceImpl implements ArticleService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -506,4 +507,5 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
             }
         }
     }
+
 }

@@ -105,4 +105,9 @@ public class VisitorServiceImpl implements cn.coselding.hamster.service.VisitorS
     public List<Article> getLast3Articles(){
         return articleDao.queryLast3Articles();
     }
+
+    @Override
+    public Article findArticleByTitle(String title) {
+        return articleDao.queryInfoByName(title);
+    }
 }

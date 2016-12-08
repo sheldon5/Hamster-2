@@ -33,12 +33,10 @@ public class IndexController implements ServletContextAware {
     @Autowired
     private Config config;
     private String contextPath;
-//    private String realRootPath;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-//        realRootPath = servletContext.getRealPath("/");
     }
 
     private String getIndexPath(HttpServletResponse response,Model model) {
