@@ -82,7 +82,7 @@ public class CompatibleController implements ServletContextAware {
             return "message";
         }
 
-        return "forward:" + article.getStaticURL();
+        return "redirect:" + article.getStaticURL();
     }
 
     @RequestMapping("/article/{year}-{month}-{day}/{title}/")
@@ -107,7 +107,7 @@ public class CompatibleController implements ServletContextAware {
             return "message";
         }
 
-        return "forward:" + article.getStaticURL();
+        return "redirect:" + article.getStaticURL();
     }
 
     //之前旧版主页
