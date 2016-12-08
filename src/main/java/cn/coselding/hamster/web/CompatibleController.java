@@ -3,6 +3,7 @@ package cn.coselding.hamster.web;
 import cn.coselding.hamster.dao.TemplateHandler;
 import cn.coselding.hamster.domain.Article;
 import cn.coselding.hamster.service.VisitorService;
+import cn.coselding.hamster.utils.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,14 @@ public class CompatibleController implements ServletContextAware{
     @Autowired
     private TemplateHandler templateHandler;
     private String contextPath;
-    private String realRootPath;
+//    private String realRootPath;
+    @Autowired
+    private Config config;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("/");
+//        realRootPath = servletContext.getRealPath("/");
     }
 
     //之前版本的网址兼容
@@ -62,7 +65,7 @@ public class CompatibleController implements ServletContextAware{
                 .append(title.hashCode())
                 .append(".html");
 
-        File html = new File(realRootPath + builder.toString());
+        File html = new File(config.getStaticArticlePath() + builder.toString());
         if (!html.exists()) {
             model.addAttribute("message", "文章不存在");
             model.addAttribute("url", contextPath + "/");

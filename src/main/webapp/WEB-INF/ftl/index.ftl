@@ -31,7 +31,7 @@
         </button>
         <div class="navbar-brand"></div>
         <img src="${contextPath}/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
-        <a class="title-text nav-title" style="color: #e38d13" href="${contextPath}/public/contact.jsp">Coselding</a>
+        <a class="title-text nav-title" style="color: #e38d13" href="${contextPath}/public/contact.html">Coselding</a>
     </div>
     <div class="collapse navbar-collapse" id="example-navbar-collapse">
         <ul class="nav navbar-nav navbar-right" id="menu-click">
@@ -48,7 +48,7 @@
                     <li><a href="/s/">短网址</a></li>
                     <li><a href="/WordUpload/">作业提交系统</a></li>
                     <li class="divider"></li>
-                    <li><a href="${contextPath}/public/contact.jsp">关于我</a></li>
+                    <li><a href="${contextPath}/public/contact.html">关于我</a></li>
                 </ul>
             </li>
         </ul>
@@ -69,7 +69,7 @@
             </span>&nbsp;&nbsp;
             <span class="meta-info">
                 <span class="glyphicon glyphicon-user"></span>
-                <a href="${contextPath}/public/contact.jsp" target="_blank">林宇强</a>
+                <a href="${contextPath}/public/contact.html" target="_blank">林宇强</a>
             </span>&nbsp;&nbsp;
             <span class="meta-info">
                 <span class="glyphicon glyphicon-link"></span>

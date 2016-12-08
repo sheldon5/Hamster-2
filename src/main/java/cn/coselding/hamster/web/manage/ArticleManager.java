@@ -11,6 +11,7 @@ import cn.coselding.hamster.dto.Page;
 import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.filter.LoginFilter;
 import cn.coselding.hamster.service.ArticleService;
+import cn.coselding.hamster.utils.Config;
 import cn.coselding.hamster.utils.WebUtils;
 import org.markdown4j.Markdown4jProcessor;
 import org.slf4j.Logger;
@@ -52,13 +53,15 @@ public class ArticleManager implements ServletContextAware {
     private TemplateHandler templateHandler;
     @Autowired
     private Markdown4jProcessor markdown4jProcessor;
+    @Autowired
+    private Config config;
     private String contextPath;
-    private String realRootPath;
+//    private String realRootPath;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("/");
+//        realRootPath = servletContext.getRealPath("/");
     }
 
     //添加文章界面
@@ -132,7 +135,7 @@ public class ArticleManager implements ServletContextAware {
         //初始化文章信息
         WebUtils.initArticle(article, WebUtils.getArticleMeta(article,markdown4jProcessor));
         //保存博文
-        articleService.addArticle(article, contextPath, realRootPath);
+        articleService.addArticle(article, contextPath, config.getStaticArticlePath());
 
         //删除草稿
         session.removeAttribute(ARTICLE_DRAFT);
@@ -215,7 +218,7 @@ public class ArticleManager implements ServletContextAware {
         WebUtils.copyBean(articleForm, article);
 
         //修改博文
-        articleService.updateArticle(article, contextPath, realRootPath);
+        articleService.updateArticle(article, contextPath, config.getStaticArticlePath());
 
         model.addAttribute("message", "博文修改成功！！！");
         model.addAttribute("url", contextPath + "/manage/article/");
@@ -263,7 +266,7 @@ public class ArticleManager implements ServletContextAware {
     @RequestMapping(value = "/delete")
     public String delete(@RequestParam("artid") int artid,
                          Model model) {
-        articleService.deleteArticle(artid, realRootPath);
+        articleService.deleteArticle(artid, config.getStaticArticlePath());
         logger.info("文章删除成功...artid=" + artid);
         return "redirect:/manage/article/";
     }
@@ -308,7 +311,7 @@ public class ArticleManager implements ServletContextAware {
                                @PathVariable("day") String day,
                                Model model) {
         String path = "/article/" + year + "/" + month + "/" + day + "/";
-        File html = new File(realRootPath + path + title.hashCode() + ".html");
+        File html = new File(config.getStaticArticlePath() + path + title.hashCode() + ".html");
         if (!html.exists()) {
             model.addAttribute("message", "文章不存在");
             model.addAttribute("url", contextPath + "/");
@@ -329,7 +332,7 @@ public class ArticleManager implements ServletContextAware {
         }
 
         TemplateHandler.ArticlePath path = templateHandler.getArticlePath(article);
-        File html = new File(realRootPath + path.getFilePath() + ".html");
+        File html = new File(config.getStaticArticlePath() + path.getFilePath() + ".html");
         if (!html.exists()) {
             model.addAttribute("message", "文章不存在");
             model.addAttribute("url", contextPath + "/");
@@ -343,7 +346,7 @@ public class ArticleManager implements ServletContextAware {
     @RequestMapping(value = "/reload/{artid}", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> reload(@PathVariable("artid") int artid) {
-        articleService.reloadArticle(artid, contextPath, realRootPath);
+        articleService.reloadArticle(artid, contextPath, config.getStaticArticlePath());
         Map<String, Object> res = new HashMap<String, Object>();
         res.put("message", "博文重新静态化成功！！！");
         logger.info("文章静态化成功...：artid=" + artid);
@@ -354,7 +357,7 @@ public class ArticleManager implements ServletContextAware {
     @RequestMapping(value = "/reload/all", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> reloadAll() {
-        articleService.reloadAllArticles(contextPath, realRootPath);
+        articleService.reloadAllArticles(contextPath, config.getStaticArticlePath());
         Map<String, Object> res = new HashMap<String, Object>();
         res.put("message", "所有博文重新静态化成功！！！");
         logger.info("全部文章静态化成功...");
@@ -365,7 +368,7 @@ public class ArticleManager implements ServletContextAware {
     @RequestMapping(value = "/reload/index", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> reloadIndex() {
-        articleService.staticIndex(contextPath, realRootPath);
+        articleService.staticIndex(contextPath, config.getStaticIndexPath());
         Map<String, Object> res = new HashMap<String, Object>();
         res.put("message", "主页静态化成功！！！");
         logger.info("主页静态化成功...");

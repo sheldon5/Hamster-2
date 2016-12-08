@@ -60,27 +60,27 @@ public interface ArticleService {
     //TODO
     //添加文章，静态化，邮件通知订阅用户
     @Transactional
-    Article addArticle(Article article, String contextPath, String realRootPath);
+    Article addArticle(Article article, String contextPath, String saveRootPath);
 
     //TODO
     //修改文章内容，静态化，通知订阅用户
     @Transactional
-    Article updateArticle(Article temp, String contextPath, String realRootPath);
+    Article updateArticle(Article temp, String contextPath, String saveRootPath);
 
     //Map<String, Object> getTemplateParams(int artid, String contextPath);
     //TODO
     //得到主页模板引擎参数
     @Transactional
     Map<String, Object> getIndexParams(String contextPath);
-    void staticIndex(String contextPath,String realRootPath);
+    void staticIndex(String contextPath,String saveRootPath);
 
     //TODO
     @Transactional
-    boolean reloadAllArticles(String contextPath, String realRootPath);
+    boolean reloadAllArticles(String contextPath, String saveRootPath);
 
     //TODO
     @Transactional
-    boolean reloadArticle(int artid, String contextPath, String realRootPath);
+    boolean reloadArticle(int artid, String contextPath, String saveRootPath);
 
     @Transactional
     void lookArticle(int artid);

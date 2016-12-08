@@ -1,7 +1,9 @@
 package cn.coselding.hamster.web;
 
+import cn.coselding.hamster.utils.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +24,15 @@ import java.io.FileWriter;
 public class ArticleController implements ServletContextAware {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private String realRootPath;
+//    private String realRootPath;
+    @Autowired
+    private Config config;
     private String contextPath;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("/");
+//        realRootPath = servletContext.getRealPath("/");
     }
 
     @RequestMapping("/{year}-{month}-{day}/{title}/")
@@ -48,7 +52,7 @@ public class ArticleController implements ServletContextAware {
                 .append(title.hashCode())
                 .append(".html");
 
-        File html = new File(realRootPath + builder.toString());
+        File html = new File(config.getStaticArticlePath() + builder.toString());
         if (!html.exists()) {
             model.addAttribute("message", "文章不存在");
             model.addAttribute("url", contextPath + "/");

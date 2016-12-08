@@ -33,12 +33,12 @@ public class IndexController implements ServletContextAware {
     @Autowired
     private Config config;
     private String contextPath;
-    private String realRootPath;
+//    private String realRootPath;
 
     @Override
     public void setServletContext(ServletContext servletContext) {
         contextPath = servletContext.getContextPath();
-        realRootPath = servletContext.getRealPath("/");
+//        realRootPath = servletContext.getRealPath("/");
     }
 
     private String getIndexPath(HttpServletResponse response,Model model) {
@@ -48,7 +48,7 @@ public class IndexController implements ServletContextAware {
             logger.info("动态主页访问...");
             return "index";
         }else {
-            File file = new File(realRootPath+"/index.html");
+            File file = new File(config.getStaticIndexPath()+"/index.html");
             FileInputStream fis = null;
             try {
                 fis = new FileInputStream(file);

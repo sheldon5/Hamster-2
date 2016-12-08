@@ -1,4 +1,4 @@
-package cn.coselding.hamster.web;
+package cn.coselding.hamster.web.manage;
 
 import cn.coselding.hamster.dto.MarkDownImageResult;
 import cn.coselding.hamster.utils.Config;

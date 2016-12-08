@@ -21,10 +21,13 @@ public class Config {
     private String serverHost;
     private boolean userRegister = false;
     private String userEmail;
-    private boolean modeDev=false;
+    private boolean modeDev = false;
     private String uploadUrlImageCkeditor;
-    private boolean globalCacheEnable=false;
+    private boolean globalCacheEnable = false;
     private String uploadImagePath;
+    private String staticIndexPath;
+    private String staticArticlePath;
+
 
     public Config(String congifFilename) {
         InputStream is = Config.class.getClassLoader().getResourceAsStream(congifFilename);
@@ -37,14 +40,17 @@ public class Config {
             userRegister = Boolean.parseBoolean(prop.getProperty("user.register"));
             userEmail = prop.getProperty("user.email");
             modeDev = Boolean.parseBoolean(prop.getProperty("mode.dev"));
-            uploadUrlImageCkeditor=prop.getProperty("uploadUrl.image.ckeditor");
-            globalCacheEnable=Boolean.parseBoolean(prop.getProperty("global.cache.enable"));
-            uploadImagePath=prop.getProperty("upload.image.path");
+            uploadUrlImageCkeditor = prop.getProperty("uploadUrl.image.ckeditor");
+            globalCacheEnable = Boolean.parseBoolean(prop.getProperty("global.cache.enable"));
+            uploadImagePath = prop.getProperty("upload.image.path");
+            staticIndexPath = prop.getProperty("static.index.path");
+            staticArticlePath = prop.getProperty("static.article.path");
+
             prop.clear();
             prop = null;
             logger.info("全局缓存初始化成功...");
         } catch (IOException e) {
-            logger.error(e.getMessage()+" 全局缓存配置文件不存在",e);
+            logger.error(e.getMessage() + " 全局缓存配置文件不存在", e);
             throw new RuntimeException(e);
         } finally {
             if (is != null) {
@@ -92,5 +98,13 @@ public class Config {
 
     public String getUploadImagePath() {
         return uploadImagePath;
+    }
+
+    public String getStaticIndexPath() {
+        return staticIndexPath;
+    }
+
+    public String getStaticArticlePath() {
+        return staticArticlePath;
     }
 }

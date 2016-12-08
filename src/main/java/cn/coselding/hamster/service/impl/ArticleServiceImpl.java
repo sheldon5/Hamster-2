@@ -163,12 +163,12 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
 
     //删除文章
     @Transactional
-    public void deleteArticle(int artid, String realPath) {
+    public void deleteArticle(int artid, String saveRootPath) {
         Article article = articleDao.queryArticleInfo(artid);
         //删除数据库记录
         articleDao.deleteArticle(artid);
         //删除静态化文件
-        String path = realPath + article.getStaticURL() + ".html";
+        String path = saveRootPath + article.getStaticURL() + ".html";
         //System.out.println("path -->> "+path);
         File file = new File(path);
         if (file.exists()) {
@@ -184,38 +184,38 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
         } else return articleDao.queryArticleInfo(artid);
     }
 
-    private void staticArticlePage(Article article, String contextPath, String realRootPath) {
+    private void staticArticlePage(Article article, String contextPath, String saveRootPath) {
         //静态化页面
         Map<String, Object> params = getTemplateParams(article.getArtid(), contextPath);
-        templateHandler.staticAllPage(realRootPath, params);
+        templateHandler.staticAllPage(saveRootPath, params);
 
         //重新静态化上一篇文章，因为他的页面的下一篇超链接需要更新
         Article last = (Article) params.get("lastArticle");
         params = getTemplateParams(last.getArtid(), contextPath);
         if (params != null) {
-            templateHandler.staticAllPage(realRootPath, params);
+            templateHandler.staticAllPage(saveRootPath, params);
         }
 
         //重新静态化下一篇文章，因为他的页面的上一篇超链接需要更新
         Article next = (Article) params.get("nextArticle");
         params = getTemplateParams(next.getArtid(), contextPath);
         if (params != null) {
-            templateHandler.staticAllPage(realRootPath, params);
+            templateHandler.staticAllPage(saveRootPath, params);
         }
 
         //重新静态化主页
-        staticIndex(contextPath, realRootPath);
+        staticIndex(contextPath, saveRootPath);
     }
 
     @Transactional
-    public void staticIndex(String contextPath, String realRootPath) {
+    public void staticIndex(String contextPath, String saveRootPath) {
         //查询首页所需动态信息
         Map<String, Object> params = getIndexParams(contextPath);
         params.put("contextPath", contextPath);
         //静态化到html文件中
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(realRootPath + "/index.html");
+            fos = new FileOutputStream(saveRootPath + "/index.html");
             templateHandler.parserTemplate("/index.ftl", params, fos);
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage() + " 主页模版文件不存在...", e);
@@ -234,7 +234,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
 
     //添加文章，静态化，邮件通知订阅用户
     @Transactional
-    public Article addArticle(Article article, String contextPath, String realRootPath) {
+    public Article addArticle(Article article, String contextPath, String saveRootPath) {
         //保存数据库
         articleDao.saveArticle(article);
 
@@ -244,7 +244,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
 
         //先删除原来的静态化文件
         TemplateHandler.ArticlePath staticURL = templateHandler.getArticlePath(article);
-        File html = new File(realRootPath + staticURL.getFilePath() + ".html");
+        File html = new File(saveRootPath + staticURL.getFilePath() + ".html");
         if (html.exists()) {
             html.delete();
         }
@@ -261,7 +261,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
             articleDao.updateArticleInfo(article);
 
             //静态化操作
-            staticArticlePage(article, contextPath, realRootPath);
+            staticArticlePage(article, contextPath, saveRootPath);
 
             //查询已订阅的用户
             List<Guest> guests = guestDao.queryRssGuests();
@@ -278,7 +278,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
 
     //修改文章内容，静态化，通知订阅用户
     @Transactional
-    public Article updateArticle(Article temp, String contextPath, String realRootPath) {
+    public Article updateArticle(Article temp, String contextPath, String saveRootPath) {
 
         Article article = articleDao.queryArticle(temp.getArtid());
         article.setType(temp.getType());
@@ -300,7 +300,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
 
         //先删除原来的静态化文件
         TemplateHandler.ArticlePath staticURL = templateHandler.getArticlePath(article);
-        File html = new File(realRootPath + staticURL.getFilePath() + ".html");
+        File html = new File(saveRootPath + staticURL.getFilePath() + ".html");
         if (html.exists()) {
             html.delete();
         }
@@ -316,7 +316,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
             articleDao.updateArticleInfo(article);
 
             //静态化操作
-            staticArticlePage(article, contextPath, realRootPath);
+            staticArticlePage(article, contextPath, saveRootPath);
 
             //查询已订阅的用户
             List<Guest> guests = guestDao.queryRssGuests();
@@ -434,7 +434,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
     }
 
     @Transactional
-    public boolean reloadAllArticles(String contextPath, String realRootPath) {
+    public boolean reloadAllArticles(String contextPath, String saveRootPath) {
         // 总记录数
         long count = articleDao.queryCount();
         Page<Article> page = new Page<Article>((int) count, 1);
@@ -451,20 +451,20 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
                 articleDao.updateArticleInfo(a);
                 Map<String, Object> params = getTemplateParams(a.getArtid(), contextPath);
                 //静态化页面
-                templateHandler.staticAllPage(realRootPath, params);
+                templateHandler.staticAllPage(saveRootPath, params);
             }
         }
         return true;
     }
 
     @Transactional
-    public boolean reloadArticle(int artid, String contextPath, String realRootPath) {
+    public boolean reloadArticle(int artid, String contextPath, String saveRootPath) {
         Article article = articleDao.queryArticleInfo(artid);
         article.setStaticURL(templateHandler.getArticlePath(article).getUrlPath());
         articleDao.updateArticleInfo(article);
         //静态化页面
         Map<String, Object> params = getTemplateParams(artid, contextPath);
-        templateHandler.staticAllPage(realRootPath, params);
+        templateHandler.staticAllPage(saveRootPath, params);
         return true;
     }
 

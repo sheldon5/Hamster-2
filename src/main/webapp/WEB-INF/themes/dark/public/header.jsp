@@ -55,7 +55,7 @@
     <li><a class="rss" href="${pageContext.request.contextPath}/rss/" title="博客订阅"></a></li>
     <li><a class="qq" href="tencent://message/?uin=1098129797&Site=&Menu=yes" title="QQ"></a></li>
     <li><a class="weibo" href="http://weibo.com/u/2671168890" title="新浪微博"></a></li>
-    <li><a class="wechat" href="${pageContext.request.contextPath}/public/wechat.jsp" title="微信"></a></li>
+    <li><a class="wechat" href="${pageContext.request.contextPath}/public/wechat.html" title="微信"></a></li>
     <li><a class="email" href="mailto:1098129797@qq.com" title="邮件"></a></li>
     <li><a class="phone" href="tel:13210135013" title="手机"></a></li>
   </ul>

@@ -80,7 +80,9 @@ public class LoginFilter implements Filter {
                 logger.info("Cookie登录成功");
             }
         }
+
         filterChain.doFilter(request, response);
+
         //这里说明登录成功，更新cookie
         Cookie username = new Cookie("username", user.getUname());
         username.setPath("/");
