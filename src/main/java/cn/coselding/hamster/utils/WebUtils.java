@@ -250,7 +250,7 @@ public class WebUtils {
      * @return
      */
     public static String toDateTimeString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
 
@@ -296,7 +296,7 @@ public class WebUtils {
                 if (str.trim().equals("") || str.trim().equals("null"))
                     return new Date();
                 try {
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     return format.parse(str);
                 } catch (Exception e) {
                     throw new RuntimeException(e);

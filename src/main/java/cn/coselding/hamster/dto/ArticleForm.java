@@ -41,7 +41,7 @@ public class ArticleForm implements Serializable {
 
     public void setDefault() {
         type = "原创";
-        showtime = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss").format(new Date());
+        showtime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date());
         top = "0";
         editor = "0";
         deploy = "1";

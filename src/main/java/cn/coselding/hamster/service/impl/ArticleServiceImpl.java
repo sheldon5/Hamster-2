@@ -385,7 +385,7 @@ public class ArticleServiceImpl implements cn.coselding.hamster.service.ArticleS
 
         String typeString = "";
         if (article.getType().equals("原创")) {
-            String url = config.getServerHost() + contextPath + article.getStaticURL() + "/";
+            String url = config.getServerHost() + contextPath + article.getStaticURL();
             typeString = "<p>本文为博主原创，允许转载，但请声明原文地址：<a href=\"" + url + "\">" + url + "</a></p>";
         }
 

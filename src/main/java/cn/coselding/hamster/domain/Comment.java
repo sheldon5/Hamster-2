@@ -36,7 +36,7 @@ public class Comment {
     }
 
     public void setComtimeshow(String comtimeshow) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             this.comtime = format.parse(comtimeshow.replace("T"," "));
         } catch (ParseException e) {
@@ -114,7 +114,7 @@ public class Comment {
 
     public void setComtime(Date comtime) {
         this.comtime = comtime;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         this.comtimeshow = format.format(this.comtime).replace(" ","T");
     }
 }

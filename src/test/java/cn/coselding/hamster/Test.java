@@ -4,6 +4,7 @@ package cn.coselding.hamster;
 import cn.coselding.hamster.dao.TemplateHandler;
 import cn.coselding.hamster.domain.Article;
 import cn.coselding.hamster.utils.ServiceUtils;
+import freemarker.template.SimpleDate;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -177,5 +178,12 @@ public class Test {
 //        String content = processor.process(new File("D:\\1.txt"));
 //        System.out.println(content);
 //        System.out.println("success");
+    }
+
+    @org.junit.Test
+    public void testDateFormat(){
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(format.format(date));
     }
 }

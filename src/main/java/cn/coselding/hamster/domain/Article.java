@@ -79,7 +79,7 @@ public class Article {
 
     public void setShowtime(String showtime) {
         this.showtime = showtime;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             this.time = format.parse(showtime.replace("T", " "));
         } catch (ParseException e) {
@@ -158,7 +158,7 @@ public class Article {
 
     public void setTime(Date time) {
         this.time = time;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         this.showtime = format.format(time).replace(" ", "T");
     }
 
