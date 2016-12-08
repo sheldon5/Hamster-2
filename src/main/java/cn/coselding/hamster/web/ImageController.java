@@ -23,6 +23,7 @@ public class ImageController {
     @Autowired
     private Config config;
 
+    //兼容之前没打散的图片路径
     @RequestMapping("/upload/images/{imageFilename}.{ext}")
     public ModelAndView getImage(@PathVariable("imageFilename") String imageFilename,
                                  @PathVariable("ext") String ext,
@@ -42,6 +43,7 @@ public class ImageController {
         return null;
     }
 
+    //兼容性，兼容之前的网址，文件打散
     @RequestMapping("/upload/images/{dir1}/{dir2}/{imageFilename}.{ext}")
     public ModelAndView getImage1(@PathVariable("imageFilename") String imageFilename,
                                   @PathVariable("ext") String ext,
