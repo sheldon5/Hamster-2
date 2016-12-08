@@ -42,6 +42,21 @@ public class ImageController {
         return null;
     }
 
+    @RequestMapping("/upload/images/{dir1}/{dir2}/{imageFilename}.{ext}")
+    public ModelAndView getImage1(@PathVariable("imageFilename") String imageFilename,
+                                  @PathVariable("ext") String ext,
+                                  @PathVariable("dir1") String dir1,
+                                  @PathVariable("dir2") String dir2,
+                                  HttpServletResponse response) {
+        String savePath = config.getUploadImagePath();
+        File image = new File(savePath + "/" + dir1 + "/" + dir2 + "/" + imageFilename + "." + ext);
+        if (image.exists()) {
+            copyImage2Response(response, image);
+            return null;
+        }
+        return null;
+    }
+
     //复制图片到响应体
     private void copyImage2Response(HttpServletResponse response, File image) {
         response.setContentType("image/*");

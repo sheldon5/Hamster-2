@@ -43,14 +43,14 @@ public class UploadController implements ServletContextAware {
     @RequestMapping(value = "/ckeditor", method = RequestMethod.POST)
     @ResponseBody
     public String ckeditor(@RequestParam("upload") MultipartFile upload,
-                         @RequestParam(value = "CKEditorFuncNum") String callback) {
+                           @RequestParam(value = "CKEditorFuncNum") String callback) {
         //后缀名
         String filename = upload.getOriginalFilename();
         String extension = filename.substring(filename.lastIndexOf('.') + 1);
         //返回体
         StringBuilder builder = new StringBuilder();
         //后缀名符合要求，上传
-        if (extension.equals("jpg")||extension.equals("jpeg") || extension.equals("bmp") || extension.equals("gif") || extension.equals("png")) {
+        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("bmp") || extension.equals("gif") || extension.equals("png")) {
             //检查上传文件大小
             if (upload.getSize() > 600 * 1024) {
                 builder.append("<script type=\"text/javascript\">");
@@ -68,7 +68,7 @@ public class UploadController implements ServletContextAware {
             try {
                 upload.transferTo(file);
             } catch (IOException e) {
-                logger.error(e.getMessage()+"CKEDITOR图片上传失败", e);
+                logger.error(e.getMessage() + "CKEDITOR图片上传失败", e);
                 builder.append("<script type=\"text/javascript\">");
                 builder.append("showMsgDialog('CKEDITOR图片上传失败');");
                 builder.append("</script>");
@@ -80,7 +80,7 @@ public class UploadController implements ServletContextAware {
             builder.append("window.parent.CKEDITOR.tools.callFunction(" +
                     callback + ",'" +
                     contextPath + config.getUploadUrlImageCkeditor() +
-                    "/" + filename + "','')");
+                    "/" + savePath + "','')");
             builder.append("</script>");
             logger.info("CKEDITOR图片上传成功");
         } else {//不符合要求，进行提示
@@ -101,10 +101,10 @@ public class UploadController implements ServletContextAware {
         String filename = upload.getOriginalFilename();
         String extension = filename.substring(filename.lastIndexOf('.') + 1);
         //后缀名符合要求，上传
-        if (extension.equals("jpg")||extension.equals("jpeg") || extension.equals("bmp") || extension.equals("gif") || extension.equals("png")) {
+        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("bmp") || extension.equals("gif") || extension.equals("png")) {
             //检查上传文件大小
             if (upload.getSize() > 600 * 1024) {
-                return new MarkDownImageResult(0,"文件大小不得大于600k","");
+                return new MarkDownImageResult(0, "文件大小不得大于600k", "");
             }
 
             //合成服务器路径
@@ -116,34 +116,34 @@ public class UploadController implements ServletContextAware {
             try {
                 upload.transferTo(file);
             } catch (IOException e) {
-                logger.error(e.getMessage()+"Markdown图片上传失败", e);
-                return new MarkDownImageResult(0,"Markdown图片上传失败","");
+                logger.error(e.getMessage() + "Markdown图片上传失败", e);
+                return new MarkDownImageResult(0, "Markdown图片上传失败", "");
             }
 
             //反馈客户端
             logger.info("Markdown图片上传成功...：" + savePath);
-            return new MarkDownImageResult(1,"Markdown图片上传成功",contextPath+config.getUploadUrlImageCkeditor()+"/"+filename);
+            return new MarkDownImageResult(1, "Markdown图片上传成功", contextPath + config.getUploadUrlImageCkeditor() + "/" + savePath);
         } else {//不符合要求，进行提示
             logger.info("Markdown图片上传：后缀名不合法");
-            return new MarkDownImageResult(0,"文件格式不正确（必须为.jpeg/.jpg/.gif/.bmp/.png文件）","");
+            return new MarkDownImageResult(0, "文件格式不正确（必须为.jpeg/.jpg/.gif/.bmp/.png文件）", "");
         }
     }
 
     //自定义图片上传
     @RequestMapping("/customer")
     @ResponseBody
-    public Map<String,Object> customer(@RequestParam("upload") MultipartFile upload){
+    public Map<String, Object> customer(@RequestParam("upload") MultipartFile upload) {
         //后缀名
         String filename = upload.getOriginalFilename();
         String extension = filename.substring(filename.lastIndexOf('.') + 1);
         //返回体
-        Map<String,Object> result = new HashMap<String,Object>();
+        Map<String, Object> result = new HashMap<String, Object>();
         //后缀名符合要求，上传
-        if (extension.equals("jpg")||extension.equals("jpeg") || extension.equals("bmp") || extension.equals("gif") || extension.equals("png")) {
+        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("bmp") || extension.equals("gif") || extension.equals("png")) {
             //检查上传文件大小
             if (upload.getSize() > 600 * 1024) {
-                result.put("state",0);
-                result.put("msg","文件大小不得大于600k");
+                result.put("state", 0);
+                result.put("msg", "文件大小不得大于600k");
                 return result;
             }
 
@@ -156,20 +156,20 @@ public class UploadController implements ServletContextAware {
             try {
                 upload.transferTo(file);
             } catch (IOException e) {
-                result.put("state",0);
-                result.put("msg","自定义图片上传失败");
-                logger.error(e.getMessage()+"自定义图片上传失败", e);
+                result.put("state", 0);
+                result.put("msg", "自定义图片上传失败");
+                logger.error(e.getMessage() + "自定义图片上传失败", e);
                 return result;
             }
 
             //反馈客户端
-            result.put("state",1);
-            result.put("msg",contextPath+config.getUploadUrlImageCkeditor()+"/"+filename);
+            result.put("state", 1);
+            result.put("msg", contextPath + config.getUploadUrlImageCkeditor() + "/" + savePath);
             logger.info("自定义图片上传成功");
             return result;
         } else {//不符合要求，进行提示
-            result.put("state",0);
-            result.put("msg","文件格式不正确（必须为.jpeg/.jpg/.gif/.bmp/.png文件）");
+            result.put("state", 0);
+            result.put("msg", "文件格式不正确（必须为.jpeg/.jpg/.gif/.bmp/.png文件）");
             logger.info("自定义图片上传：后缀名不合法");
             return result;
         }
