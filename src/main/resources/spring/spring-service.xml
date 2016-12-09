@@ -36,4 +36,8 @@
        <bean id="globalCache" class="cn.coselding.hamster.utils.GlobalCache" scope="singleton">
            <constructor-arg index="0" ref="config"/>
        </bean>
+       <!-- 文件系统权限设置工具类 -->
+       <bean id="fsAuthorityUtil" class="cn.coselding.hamster.utils.FSAuthorityUtil">
+           <constructor-arg index="0" ref="config"/>
+       </bean>
 </beans>

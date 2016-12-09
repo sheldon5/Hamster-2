@@ -27,6 +27,7 @@ public class Config {
     private String uploadImagePath;
     private String staticIndexPath;
     private String staticArticlePath;
+    private String fsAuthCommand;
 
 
     public Config(String congifFilename) {
@@ -45,6 +46,7 @@ public class Config {
             uploadImagePath = prop.getProperty("upload.image.path");
             staticIndexPath = prop.getProperty("static.index.path");
             staticArticlePath = prop.getProperty("static.article.path");
+            fsAuthCommand = prop.getProperty("fs.auth.command");
 
             prop.clear();
             prop = null;
@@ -106,5 +108,9 @@ public class Config {
 
     public String getStaticArticlePath() {
         return staticArticlePath;
+    }
+
+    public String getFsAuthCommand() {
+        return fsAuthCommand;
     }
 }

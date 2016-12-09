@@ -2,6 +2,7 @@ package cn.coselding.hamster.web.manage;
 
 import cn.coselding.hamster.service.ThemeService;
 import cn.coselding.hamster.dto.Theme;
+import cn.coselding.hamster.utils.FSAuthorityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class ThemeManager implements ServletContextAware{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ThemeService themeService;
+    @Autowired
+    private FSAuthorityUtil fsAuthorityUtil;
     private String contextPath;
     private String realRootPath;
 
@@ -74,6 +77,8 @@ public class ThemeManager implements ServletContextAware{
             res.put("state", 1);
             res.put("message", "主题切换成功");
             logger.info("主题切换成功:"+name);
+
+            fsAuthorityUtil.passAuthority();
             return res;
         }catch (Exception e){
             e.printStackTrace();

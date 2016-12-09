@@ -2,6 +2,7 @@ package cn.coselding.hamster.web.manage;
 
 import cn.coselding.hamster.dto.MarkDownImageResult;
 import cn.coselding.hamster.utils.Config;
+import cn.coselding.hamster.utils.FSAuthorityUtil;
 import cn.coselding.hamster.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,8 @@ public class UploadController implements ServletContextAware {
 
     @Autowired
     private Config config;
+    @Autowired
+    private FSAuthorityUtil fsAuthorityUtil;
     private String contextPath;
 
     @Override
@@ -83,6 +86,8 @@ public class UploadController implements ServletContextAware {
                     "/" + savePath + "','')");
             builder.append("</script>");
             logger.info("CKEDITOR图片上传成功");
+
+            fsAuthorityUtil.passAuthority();
         } else {//不符合要求，进行提示
             builder.append("<script type=\"text/javascript\">");
             builder.append("window.parent.CKEDITOR.tools.callFunction(" + callback + ",''," + "'文件格式不正确（必须为.jpeg/.jpg/.gif/.bmp/.png文件）');");
@@ -122,6 +127,8 @@ public class UploadController implements ServletContextAware {
 
             //反馈客户端
             logger.info("Markdown图片上传成功...：" + savePath);
+
+            fsAuthorityUtil.passAuthority();
             return new MarkDownImageResult(1, "Markdown图片上传成功", contextPath + config.getUploadUrlImageCkeditor() + "/" + savePath);
         } else {//不符合要求，进行提示
             logger.info("Markdown图片上传：后缀名不合法");
@@ -166,6 +173,8 @@ public class UploadController implements ServletContextAware {
             result.put("state", 1);
             result.put("msg", contextPath + config.getUploadUrlImageCkeditor() + "/" + savePath);
             logger.info("自定义图片上传成功");
+
+            fsAuthorityUtil.passAuthority();
             return result;
         } else {//不符合要求，进行提示
             result.put("state", 0);

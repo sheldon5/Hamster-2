@@ -12,6 +12,7 @@ import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.filter.LoginFilter;
 import cn.coselding.hamster.service.ArticleService;
 import cn.coselding.hamster.utils.Config;
+import cn.coselding.hamster.utils.FSAuthorityUtil;
 import cn.coselding.hamster.utils.WebUtils;
 import org.markdown4j.Markdown4jProcessor;
 import org.slf4j.Logger;
@@ -55,6 +56,8 @@ public class ArticleManager implements ServletContextAware {
     private Markdown4jProcessor markdown4jProcessor;
     @Autowired
     private Config config;
+    @Autowired
+    private FSAuthorityUtil fsAuthorityUtil;
     private String contextPath;
 //    private String realRootPath;
 
@@ -142,6 +145,8 @@ public class ArticleManager implements ServletContextAware {
         model.addAttribute("message", "博文录入成功！！！");
         model.addAttribute("url", contextPath + "/manage/article/");
         logger.info("文章添加成功...：title=" + article.getTitle());
+
+        fsAuthorityUtil.passAuthority();
         return "message";
     }
 
@@ -223,6 +228,8 @@ public class ArticleManager implements ServletContextAware {
         model.addAttribute("message", "博文修改成功！！！");
         model.addAttribute("url", contextPath + "/manage/article/");
         logger.info("文章修改成功...：title=" + article.getTitle());
+
+        fsAuthorityUtil.passAuthority();
         return "message";
     }
 
