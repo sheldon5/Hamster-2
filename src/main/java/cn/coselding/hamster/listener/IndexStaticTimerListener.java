@@ -3,6 +3,7 @@ package cn.coselding.hamster.listener; /**
  */
 
 import cn.coselding.hamster.service.ArticleService;
+import cn.coselding.hamster.utils.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
@@ -23,7 +24,7 @@ public class IndexStaticTimerListener implements ServletContextListener,
     }
 
     private String contextPath;
-    private String realPath;
+    private Config config;
     private ArticleService articleService;
     private Timer timer;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -41,14 +42,14 @@ public class IndexStaticTimerListener implements ServletContextListener,
         WebApplicationContext wac = (WebApplicationContext) sc.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         articleService = wac.getBean(ArticleService.class);
         contextPath = sc.getContextPath();
-        realPath = sc.getRealPath("/");
+        config = wac.getBean(Config.class);
 
         //每隔半小时更新一次主页
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                articleService.staticIndex(contextPath, realPath);
+                articleService.staticIndex(contextPath, config.getStaticIndexPath());
                 logger.info("主页定时静态化成功...");
             }
         }, 60 * 1000, 30 * 60 * 1000);

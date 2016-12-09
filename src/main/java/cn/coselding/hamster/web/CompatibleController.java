@@ -91,23 +91,7 @@ public class CompatibleController implements ServletContextAware {
                               @PathVariable("day") String day,
                               @PathVariable("title") String title,
                               Model model) {
-        System.out.println(title);
-        Article article = visitorService.findArticleByTitle(title);
-
-        if (article == null) {
-            model.addAttribute("message", "文章不存在");
-            model.addAttribute("url", contextPath + "/");
-            return "message";
-        }
-
-        File html = new File(config.getStaticArticlePath() + article.getStaticURL());
-        if (!html.exists()) {
-            model.addAttribute("message", "文章不存在");
-            model.addAttribute("url", contextPath + "/");
-            return "message";
-        }
-
-        return "redirect:" + article.getStaticURL();
+        return viewArticle(year,month,day,title,model);
     }
 
     //之前旧版主页
