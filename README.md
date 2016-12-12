@@ -14,7 +14,7 @@
 jquery-2.2.1  
 bootstrap-3.3.6（很自然的有自适应~）  
 
->* 后端：  
+>* 后端：
 mysql+c3p0+Mybatis+Spring+SpringMVC+JSP  
 
 >* 其他  
