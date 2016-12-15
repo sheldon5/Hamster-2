@@ -474,8 +474,8 @@ function initEditormd(contextPath) {
 function articleSubmitCheck() {
     var showtime = $('#time').val();
     //alert(showtime);
-    if(showtime.length()>19){
-        showtime = showtime.substring(0,19);
+    if(showtime.length()>16){
+        showtime = showtime.substring(0,16);
         //alert(showtime);
         $('#time').val(showtime);
     }

@@ -23,7 +23,7 @@ public class ArticleForm implements Serializable {
     private String cid;
     @Length(min = 1, message = "{Length.articleForm.content}")
     private String content;
-    @Pattern(regexp = "[0-9]{1,4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}", message = "{Pattern.articleForm.showtime}")
+    @Pattern(regexp = "[0-9]{1,4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}", message = "{Pattern.articleForm.showtime}")
     private String showtime;
     @Length(min = 1, message = "{Length.articleForm.content}")
     private String md;
