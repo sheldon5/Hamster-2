@@ -225,7 +225,7 @@
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
                     </connectors>
-                    <contextPath>/</contextPath>
+                    <contextPath>/Hamster-2</contextPath>
                 </configuration>
             </plugin>
             <plugin>
