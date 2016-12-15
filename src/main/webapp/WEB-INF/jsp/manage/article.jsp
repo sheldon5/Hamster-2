@@ -45,7 +45,7 @@
                 </div>
                 <div class="panel-body">
                     <form id="form" role="form"
-                          action="${pageContext.request.contextPath}/manage/article/${method}-go/" method="post">
+                          action="${pageContext.request.contextPath}/manage/article/${method}-go/" method="post" onsubmit="return articleSubmitCheck()">
                         <input id="artid" type="hidden" name="artid" value="${artid}">
                         <input id="editor" type="hidden" name="editor" value="${article.editor}">
                         <input id="method" type="hidden" name="method" value="${method}">

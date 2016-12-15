@@ -471,6 +471,17 @@ function initEditormd(contextPath) {
     editormd('markdown', getMarkDownOptions(contextPath));
 }
 
+function articleSubmitCheck() {
+    var showtime = $('#time').val();
+    alert(showtime);
+    if(showtime.length()>16){
+        showtime = showtime.substring(0,16);
+        alert(showtime);
+        $('#time').val(showtime);
+    }
+    return true;
+}
+
 /**
  * 文章管理页面脚本
  */
