@@ -222,6 +222,8 @@ public class ArticleManager implements ServletContextAware {
         Article article = new Article();
         WebUtils.copyBean(articleForm, article);
 
+        System.out.println("updateGo-->>"+article);
+
         //修改博文
         articleService.updateArticle(article, contextPath, config.getStaticArticlePath());
 

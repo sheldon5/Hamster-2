@@ -292,6 +292,8 @@ public class ArticleServiceImpl implements ArticleService {
         article.setMd(temp.getMd());
         article.setDeploy(temp.getDeploy());
         article.setContent(temp.getContent());
+        article.setUrlTitle(temp.getUrlTitle());
+        article.setStaticURL(temp.getStaticURL());
         //保存数据库
         articleDao.updateArticle(article);
 
