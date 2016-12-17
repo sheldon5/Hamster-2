@@ -62,7 +62,7 @@
                                 <a href="#">${art.type}</a>&nbsp;&nbsp;
                                 <a href="${pageContext.request.contextPath}/list?cid=${art.cid}"><span class="glyphicon glyphicon-tags"></span> ${fn:escapeXml(art.cname)}</a>&nbsp;&nbsp;
                                 <a href="#"><span class="glyphicon glyphicon-user"></span> ${fn:escapeXml(art.author)}</a>&nbsp;&nbsp;
-                                <span class="glyphicon glyphicon-time"></span><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate>&nbsp;&nbsp;
+                                <span class="glyphicon glyphicon-time"></span><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>&nbsp;&nbsp;
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -105,7 +105,7 @@
                             <h5><a href="${pageContext.request.contextPath}${art.staticURL}">${fn:escapeXml(art.title)}</a></h5>
                         </div>
                         <div class="list-group-item-text text-right">
-                            <em><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate></em>
+                            <em><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></em>
                         </div>
                     </li>
                 </c:forEach>

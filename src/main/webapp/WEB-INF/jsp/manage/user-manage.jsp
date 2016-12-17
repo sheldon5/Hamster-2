@@ -56,7 +56,7 @@
                             <tr>
                                 <td>${user.uid}</td>
                                 <td>${fn:escapeXml(user.uname)}</td>
-                                <td><fmt:formatDate value="${user.utime}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate></td>
+                                <td><fmt:formatDate value="${user.utime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
                                 <td>
                                     <button class="btn btn-danger" onclick="return deleteUserConfirm('${pageContext.request.contextPath}/manage/user/delete?uid=${user.uid}','${fn:escapeXml(user.uname)}')">删除</button>&nbsp;
                                     <a class="btn btn-primary" href="${pageContext.request.contextPath}/manage/user/update?uid=${user.uid}">修改</a>&nbsp;

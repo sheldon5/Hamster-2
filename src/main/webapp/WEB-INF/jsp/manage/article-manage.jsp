@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +68,7 @@
                             <td>${art.artid}</td>
                             <td><a style="color:#0000ff" href="${pageContext.request.contextPath}${art.staticURL}">${fn:escapeXml(art.title)}</a></td>
                             <td>${fn:escapeXml(art.author)}</td>
-                            <td>${fn:replace(art.showtime,'T',' ')}</td>
+                            <td><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
                             <td><a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/article/list?cid=${art.cid}">${fn:escapeXml(art.cname)}</a>
                             </td>
                             <td>${art.looked}</td>

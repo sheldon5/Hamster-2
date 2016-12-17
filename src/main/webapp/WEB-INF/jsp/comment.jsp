@@ -96,7 +96,7 @@
                                 <a href="mailto:${com.gemail}"><span class="glyphicon glyphicon-envelope"></span> ${com.gemail}</a>
                             </div>
                             <div class="col-md-4 column text-right">
-                                <span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${com.comtime}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate>
+                                <span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${com.comtime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
                             </div>
                         </div>
                     </div>

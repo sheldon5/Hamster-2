@@ -56,7 +56,7 @@
                                 <td>${cate.cid}</td>
                                 <td><a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/article/list?cid=${cate.cid}">${fn:escapeXml(cate.cname)}</a>
                                 </td>
-                                <td><fmt:formatDate value="${cate.ctime}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate></td>
+                                <td><fmt:formatDate value="${cate.ctime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
                                 <td>
                                     <button class="btn btn-danger" onclick="return deleteCategoryConfirm('${pageContext.request.contextPath}/manage/category/delete?cid=${cate.cid}','${fn:escapeXml(cate.cname)}')">删除</button>&nbsp;
                                     <a class="btn btn-primary" href="${pageContext.request.contextPath}/manage/category/update?cid=${cate.cid}">修改</a>&nbsp;

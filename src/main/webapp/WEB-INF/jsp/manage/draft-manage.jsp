@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +54,7 @@
                         <tr>
                             <td>${art.artid}</td>
                             <td><a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/draft/update?artid=${art.artid}">${fn:escapeXml(art.title)}</a></td>
-                            <td>${fn:replace(art.showtime,'T',' ')}</td>
+                            <td><fmt:formatDate value="${art.time}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
                             <td>${fn:escapeXml(art.cname)}
                             </td>
                             <td>${art.top==0?'未顶置':'顶置'}</td>

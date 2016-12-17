@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,7 +83,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td>${fn:replace(comment.comtimeshow,'T',' ')}</td>
+                                <td><fmt:formatDate value="${comment.comtime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
                                 <td>
                                     <button class="btn btn-danger" onclick="return deleteCommentConfirm('${pageContext.request.contextPath}/manage/comment/delete?comid=${comment.comid}','${comment.comid}')">删除</button>&nbsp;
                                     <a class="btn btn-primary" href="${pageContext.request.contextPath}/manage/comment/update?comid=${comment.comid}">修改</a>&nbsp;
