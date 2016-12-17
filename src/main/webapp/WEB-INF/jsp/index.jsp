@@ -93,7 +93,7 @@
         </div>
 
         <div class="col-md-3 column">
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
                 </div>
@@ -115,7 +115,7 @@
                 </ul>
             </div>
 
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
                 </div>
@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签分类</h3>
                 </div>
@@ -143,7 +143,7 @@
                 </ul>
             </div>
 
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
                 </div>

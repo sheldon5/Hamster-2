@@ -39,7 +39,7 @@
     <div class="row clearfix">
         <div class="col-md-2 column"></div>
         <div class="col-md-8 column">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title comment-title"><span class="glyphicon glyphicon-comment"></span> 留言板</h3>
                 </div>
@@ -81,7 +81,7 @@
             </div>
 
             <c:forEach items="${page.list}" var="com">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title visitor-text">
                             <span class="glyphicon glyphicon-user"></span> ${fn:escapeXml(com.gname)}

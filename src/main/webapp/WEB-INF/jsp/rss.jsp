@@ -36,7 +36,7 @@
     <div class="row clearfix">
         <div class="col-md-3 column"></div>
         <div class="col-md-6 column">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title rss-title">博客订阅</h3>
                 </div>
