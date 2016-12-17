@@ -2,9 +2,11 @@ package cn.coselding.hamster.web;
 
 import cn.coselding.hamster.domain.Comment;
 import cn.coselding.hamster.domain.Guest;
+import cn.coselding.hamster.dto.CommonMessage;
 import cn.coselding.hamster.dto.Page;
 import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.dto.VisitorCommentForm;
+import cn.coselding.hamster.enums.Status;
 import cn.coselding.hamster.service.ArticleService;
 import cn.coselding.hamster.service.VisitorService;
 import cn.coselding.hamster.utils.WebUtils;
@@ -93,8 +95,8 @@ public class CommentController implements ServletContextAware{
     //访客留言操作
     @RequestMapping(value = "/submit")
     @ResponseBody
-    public Map<String,Object> comment(@Valid VisitorCommentForm visitorCommentForm,
-                          BindingResult result) {
+    public CommonMessage comment(@Valid VisitorCommentForm visitorCommentForm,
+                                 BindingResult result) {
         Map<String,Object> res = new HashMap<String,Object>();
         //表单校验失败
         if(result.hasErrors()){
@@ -102,7 +104,7 @@ public class CommentController implements ServletContextAware{
             for (ObjectError error : result.getAllErrors()) {
                 res.put("state",0);
                 res.put("message",error.getDefaultMessage());
-                return res;
+                return new CommonMessage(res, Status.ILLEGAL_PARAMS);
             }
         }
 
@@ -131,6 +133,6 @@ public class CommentController implements ServletContextAware{
 
         res.put("state",1);
         res.put("message","留言添加成功，待您的留言通过审核，将会对您的邮箱进行保护并显示在留言列表，谢谢合作！");
-        return res;
+        return CommonMessage.success(res);
     }
 }

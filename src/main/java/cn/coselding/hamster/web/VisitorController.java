@@ -2,6 +2,7 @@ package cn.coselding.hamster.web;
 
 import cn.coselding.hamster.domain.Article;
 import cn.coselding.hamster.domain.Category;
+import cn.coselding.hamster.dto.CommonMessage;
 import cn.coselding.hamster.dto.Page;
 import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.service.ArticleService;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +51,7 @@ public class VisitorController implements ServletContextAware {
 
     @RequestMapping(value = "/like")
     @ResponseBody
-    public Article like(@RequestParam("artid") int artid,
+    public CommonMessage like(@RequestParam("artid") int artid,
                         HttpSession session) {
         //还没like过就能like
         if (session.getAttribute(LIKE_TOKEN + artid) == null) {
@@ -61,13 +63,15 @@ public class VisitorController implements ServletContextAware {
         }
 
         Article article = visitorService.queryArticleInfo(artid);
-        //获取请求前的页面
-        return article;
+
+        Map res = new HashMap();
+        res.put("article",article);
+        return CommonMessage.success(res);
     }
 
     @RequestMapping(value = "/like/")
     @ResponseBody
-    public Article like2(@RequestParam("artid") int artid,
+    public CommonMessage like2(@RequestParam("artid") int artid,
                         HttpSession session) {
         return like(artid, session);
     }
@@ -80,7 +84,7 @@ public class VisitorController implements ServletContextAware {
      */
     @RequestMapping(value = "/refresh")
     @ResponseBody
-    public Article refresh(@RequestParam("artid") int artid,
+    public CommonMessage refresh(@RequestParam("artid") int artid,
                            HttpSession session) {
         //防止同一用户session添加多次访问量
         boolean isNew = false;
@@ -97,12 +101,14 @@ public class VisitorController implements ServletContextAware {
         }
         Article article = visitorService.getArticleInfo(artid);
         //回写响应数据
-        return article;
+        Map res = new HashMap();
+        res.put("article",article);
+        return CommonMessage.success(res);
     }
 
     @RequestMapping(value = "/refresh/")
     @ResponseBody
-    public Article refresh2(@RequestParam("artid") int artid,
+    public CommonMessage refresh2(@RequestParam("artid") int artid,
                             HttpSession session) {
         return refresh(artid,session);
     }
@@ -110,19 +116,25 @@ public class VisitorController implements ServletContextAware {
     //刷新标签列表
     @RequestMapping(value = "/categories")
     @ResponseBody
-    public List<Category> refreshCategories() {
+    public CommonMessage refreshCategories() {
         List<Category> categories = articleService.getAllCategories();
         System.out.println("更新主页类别");
         //回写响应数据
-        return categories;
+
+        Map res = new HashMap();
+        res.put("categories",categories);
+        return CommonMessage.success(res);
     }
 
     //刷新最新文章列表
     @RequestMapping(value = "/last3")
     @ResponseBody
-    public List<Article> refreshLast3() {
+    public CommonMessage refreshLast3() {
         System.out.println("更新主页最新文章");
-        return visitorService.getLast3Articles();
+
+        Map res = new HashMap();
+        res.put("articles",visitorService.getLast3Articles());
+        return CommonMessage.success(res);
     }
 
     //文章搜索

@@ -1,10 +1,8 @@
 package cn.coselding.hamster.web.manage;
 
 import cn.coselding.hamster.domain.Category;
-import cn.coselding.hamster.dto.CategoryAddResult;
-import cn.coselding.hamster.dto.CategoryForm;
-import cn.coselding.hamster.dto.Page;
-import cn.coselding.hamster.dto.Query;
+import cn.coselding.hamster.dto.*;
+import cn.coselding.hamster.enums.Status;
 import cn.coselding.hamster.exception.ForeignKeyException;
 import cn.coselding.hamster.filter.LoginFilter;
 import cn.coselding.hamster.service.ArticleService;
@@ -20,7 +18,9 @@ import org.springframework.web.context.ServletContextAware;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**标签类别管理Controller
  * Created by 宇强 on 2016/10/4 0004.
@@ -82,10 +82,12 @@ public class CategoryManager implements ServletContextAware {
     //添加类别操作ajax
     @RequestMapping(value = "/add-go/ajax", method = RequestMethod.POST)
     @ResponseBody
-    public CategoryAddResult addGoAjax(@Valid CategoryForm categoryForm,
-                        BindingResult result) {
+    public CommonMessage addGoAjax(@Valid CategoryForm categoryForm,
+                                   BindingResult result) {
+        Map<String,Object> resultMap = new HashMap();
         if (result.hasErrors()) {
-            return new CategoryAddResult(0,articleService.getAllCategories());
+            resultMap.put("categories",articleService.getAllCategories());
+            return CommonMessage.illegalParams("参数不合法！");
         }
 
         Category category = new Category();
@@ -95,11 +97,13 @@ public class CategoryManager implements ServletContextAware {
         boolean res = articleService.addCategory(category);
         if (res) {
             logger.info("类型添加成功...：cname="+categoryForm.getCname());
-            return new CategoryAddResult(1,articleService.getAllCategories());
+            resultMap.put("categories",articleService.getAllCategories());
+            return CommonMessage.success(resultMap);
         }
         else {
             logger.info("类型已存在...：cname="+categoryForm.getCname());
-            return new CategoryAddResult(0,articleService.getAllCategories());
+            resultMap.put("categories",articleService.getAllCategories());
+            return new CommonMessage(resultMap, Status.AUTH_ERROR);
         }
     }
 

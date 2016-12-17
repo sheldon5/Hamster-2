@@ -4,6 +4,7 @@ import cn.coselding.hamster.domain.Article;
 import cn.coselding.hamster.domain.Category;
 import cn.coselding.hamster.domain.User;
 import cn.coselding.hamster.dto.ArticleForm;
+import cn.coselding.hamster.dto.CommonMessage;
 import cn.coselding.hamster.dto.Page;
 import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.filter.LoginFilter;
@@ -25,7 +26,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 宇强 on 2016/10/11 0011.
@@ -305,11 +308,13 @@ public class DraftManager implements ServletContextAware{
     //草稿编辑页面重置
     @RequestMapping(value = "/reset",method = RequestMethod.POST)
     @ResponseBody
-    public Article resetDraft(@RequestParam("artid")int artid,
-                                @RequestParam("editor")int editor){
+    public CommonMessage resetDraft(@RequestParam("artid")int artid,
+                                    @RequestParam("editor")int editor){
         Article draft = draftService.queryDraft(artid);
         draft.setEditor(editor);
-        return draft;
+        Map<String,Object> res = new HashMap();
+        res.put("article",draft);
+        return CommonMessage.success(res);
     }
 
     //默认情况下，查询草稿列表

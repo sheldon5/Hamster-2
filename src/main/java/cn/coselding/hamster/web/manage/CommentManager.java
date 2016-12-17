@@ -126,7 +126,7 @@ public class CommentManager implements ServletContextAware {
 
     @RequestMapping("/pass")
     @ResponseBody
-    public Map<String,Object> passComment(@RequestParam("comid")int comid,
+    public CommonMessage passComment(@RequestParam("comid")int comid,
                                           @RequestParam("pass")int pass){
         Map<String,Object> res = new HashMap<String,Object>();
         guestService.setCommentPass(comid,pass);
@@ -137,7 +137,7 @@ public class CommentManager implements ServletContextAware {
         }else {
             res.put("resMsg","不通过");
         }
-        return res;
+        return CommonMessage.success(res);
     }
 
     @RequestMapping("/wait")

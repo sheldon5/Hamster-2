@@ -5,10 +5,7 @@ import cn.coselding.hamster.dao.TemplateHandler;
 import cn.coselding.hamster.domain.Article;
 import cn.coselding.hamster.domain.Category;
 import cn.coselding.hamster.domain.User;
-import cn.coselding.hamster.dto.ArticleForm;
-import cn.coselding.hamster.dto.MarkDownImageResult;
-import cn.coselding.hamster.dto.Page;
-import cn.coselding.hamster.dto.Query;
+import cn.coselding.hamster.dto.*;
 import cn.coselding.hamster.filter.LoginFilter;
 import cn.coselding.hamster.service.ArticleService;
 import cn.coselding.hamster.utils.Config;
@@ -354,55 +351,57 @@ public class ArticleManager implements ServletContextAware {
     //重新静态化文章
     @RequestMapping(value = "/reload/{artid}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> reload(@PathVariable("artid") int artid) {
+    public CommonMessage reload(@PathVariable("artid") int artid) {
         articleService.reloadArticle(artid, contextPath, config.getStaticArticlePath());
         Map<String, Object> res = new HashMap<String, Object>();
         res.put("message", "博文重新静态化成功！！！");
         logger.info("文章静态化成功...：artid=" + artid);
-        return res;
+        return CommonMessage.success(res);
     }
 
     //静态化所有文章
     @RequestMapping(value = "/reload/all", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> reloadAll() {
+    public CommonMessage reloadAll() {
         articleService.reloadAllArticles(contextPath, config.getStaticArticlePath());
         Map<String, Object> res = new HashMap<String, Object>();
         res.put("message", "所有博文重新静态化成功！！！");
         logger.info("全部文章静态化成功...");
-        return res;
+        return CommonMessage.success(res);
     }
 
     //静态化主页
     @RequestMapping(value = "/reload/index", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> reloadIndex() {
+    public CommonMessage reloadIndex() {
         articleService.staticIndex(contextPath, config.getStaticIndexPath());
         Map<String, Object> res = new HashMap<String, Object>();
         res.put("message", "主页静态化成功！！！");
         logger.info("主页静态化成功...");
-        return res;
+        return CommonMessage.success(res);
     }
 
     //数据库格式化
     @RequestMapping(value = "/formatdb", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> formatdb() {
+    public CommonMessage formatdb() {
         articleService.formatFromDB();
         Map<String, Object> res = new HashMap<String, Object>();
         res.put("message", "数据库格式化成功！！！");
         logger.info("数据库内容标准格式化成功...");
-        return res;
+        return CommonMessage.success(res);
     }
 
     //文章编辑页面重置
     @RequestMapping(value = "/reset",method = RequestMethod.POST)
     @ResponseBody
-    public Article resetArticle(@RequestParam("artid")int artid,
+    public CommonMessage resetArticle(@RequestParam("artid")int artid,
                                @RequestParam("editor")int editor){
         Article article = articleService.queryArticle(artid,true);
         article.setEditor(editor);
-        return article;
+        Map<String, Object> res = new HashMap<String, Object>();
+        res.put("article", article);
+        return CommonMessage.success(res);
     }
 
     //默认情况下，查询文章列表

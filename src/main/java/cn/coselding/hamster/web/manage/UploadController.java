@@ -1,6 +1,8 @@
 package cn.coselding.hamster.web.manage;
 
+import cn.coselding.hamster.dto.CommonMessage;
 import cn.coselding.hamster.dto.MarkDownImageResult;
+import cn.coselding.hamster.enums.Status;
 import cn.coselding.hamster.utils.Config;
 import cn.coselding.hamster.utils.FSAuthorityUtil;
 import cn.coselding.hamster.utils.WebUtils;
@@ -139,7 +141,7 @@ public class UploadController implements ServletContextAware {
     //自定义图片上传
     @RequestMapping("/customer")
     @ResponseBody
-    public Map<String, Object> customer(@RequestParam("upload") MultipartFile upload) {
+    public CommonMessage customer(@RequestParam("upload") MultipartFile upload) {
         //后缀名
         String filename = upload.getOriginalFilename();
         String extension = filename.substring(filename.lastIndexOf('.') + 1);
@@ -151,7 +153,7 @@ public class UploadController implements ServletContextAware {
             if (upload.getSize() > 600 * 1024) {
                 result.put("state", 0);
                 result.put("msg", "文件大小不得大于600k");
-                return result;
+                return new CommonMessage(result, Status.ILLEGAL_PARAMS);
             }
 
             //合成服务器路径
@@ -166,21 +168,22 @@ public class UploadController implements ServletContextAware {
                 result.put("state", 0);
                 result.put("msg", "自定义图片上传失败");
                 logger.error(e.getMessage() + "自定义图片上传失败", e);
-                return result;
+                return new CommonMessage(result,Status.SERVER_ERROR);
             }
 
             //反馈客户端
             result.put("state", 1);
-            result.put("msg", contextPath + config.getUploadUrlImageCkeditor() + "/" + savePath);
+            result.put("url", contextPath + config.getUploadUrlImageCkeditor() + "/" + savePath);
+            result.put("msg", "自定义图片上传成功");
             logger.info("自定义图片上传成功");
 
             fsAuthorityUtil.passAuthority();
-            return result;
+            return CommonMessage.success(result);
         } else {//不符合要求，进行提示
             result.put("state", 0);
             result.put("msg", "文件格式不正确（必须为.jpeg/.jpg/.gif/.bmp/.png文件）");
             logger.info("自定义图片上传：后缀名不合法");
-            return result;
+            return new CommonMessage(result,Status.ILLEGAL_PARAMS);
         }
     }
 }

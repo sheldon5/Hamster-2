@@ -144,21 +144,22 @@ function addCategory(url) {
             type: "post",
             data: 'cname=' + categoryName,
             success: function (result) {
-                var state = result['state'];
-                var categories = result['categories'];
-                //刷新页面数据
-                var html = '';
-                for (var i = 0; i < categories.length; i++) {
-                    html += '<option value="' + categories[i]['cid'] + '">' + categories[i]['cname'] + '</option>';
+                var status = result['status'];
+                if(status['code']!=0){
+                    showMsgDialog("类别添加失败，原因：" + status['reason']);
+                } else {
+                    var categories = result['result']['categories'];
+                    //刷新页面数据
+                    var html = '';
+                    for (var i = 0; i < categories.length; i++) {
+                        html += '<option value="' + categories[i]['cid'] + '">' + categories[i]['cname'] + '</option>';
+                    }
+                    //alert(html);
+                    $('#cid').html(html);
                 }
-                //alert(html);
-                $('#cid').html(html);
 
                 //隐藏对话框
                 $('#addCategoryDialog').modal('hide');
-                if (state == 0) {
-                    showMsgDialog("类别添加失败！！！");
-                }
             },
             error: function (result) {
                 $('#addCategoryDialog').modal('hide');
@@ -271,14 +272,13 @@ function uploadCustomerImage(url) {
         dataType: 'json',
         headers: {"ClientCallMode": "ajax"}, //添加请求头部
         success: function (data) {
-            var state = data['state'];
-            var msg = data['msg'];
-            if (state == 1) {
-                $('#uploadSuccessImage').attr('src', msg);
-                $('#uploadSuccessAddr').attr('value', msg);
+            var status = data['status'];
+            if (status['code'] == 0) {
+                $('#uploadSuccessImage').attr('src', data['result']['url']);
+                $('#uploadSuccessAddr').attr('value', data['result']['url']);
                 $('#customerUploadBody').html($('#uploadSuccess').html());
             } else {
-                showMsgDialog(msg);
+                showMsgDialog(data['result']['msg']);
             }
         },
         error: function (data) {
@@ -297,7 +297,8 @@ function resetFromDatabase(url, contextPath) {
                 url: url,
                 type: 'post',
                 data: 'artid=' + $('#artid').val() + '&editor=' + $('#editor').val(),
-                success: function (article) {
+                success: function (res) {
+                    var article = res['result']['article'];
                     $('#title').val(article['title']);
                     $('#cid').val(article['cid']);
                     $('#type').val(article['type']);
@@ -410,7 +411,7 @@ function reloadArticle(title, url) {
             url: url,
             type: 'get',
             success: function (res) {
-                showMsgDialog(res['message']);
+                showMsgDialog(res['result']['message']);
             },
             error: function (res) {
                 showMsgDialog('网络错误，错误信息：' + res);
@@ -427,7 +428,7 @@ function reloadAllArticles(url) {
             url: url,
             type: 'get',
             success: function (res) {
-                showMsgDialog(res['message']);
+                showMsgDialog(res['result']['message']);
             },
             error: function (res) {
                 showMsgDialog('网络错误，错误信息：' + res);
@@ -444,7 +445,7 @@ function fomatDatabase(url) {
             url: url,
             type: 'get',
             success: function (res) {
-                showMsgDialog(res['message']);
+                showMsgDialog(res['result']['message']);
             },
             error: function (res) {
                 showMsgDialog('网络错误，错误信息：' + res);
@@ -512,12 +513,13 @@ function passComment(url, comid) {
             url: url + '?comid=' + comid + '&pass=' + pass,
             type: 'post',
             success: function (res) {
-                if (res['state'] == 1) {
+                var status = res['status'];
+                if (status['code'] == 0) {
                     var id = '#comid-' + comid;
-                    $(id).html(res['resMsg']);
-                    showMsgDialog(res['message']);
+                    $(id).html(res['result']['resMsg']);
+                    showMsgDialog(res['result']['message']);
                 } else {
-                    showMsgDialog('留言设置失败！');
+                    showMsgDialog('留言设置失败,原因：' + status['reason']);
                 }
             },
             error: function (res) {
@@ -695,7 +697,7 @@ function staticIndexComfirm(url) {
             url: url,
             type: 'get',
             success: function (res) {
-                showMsgDialog(res['message']);
+                showMsgDialog(res['result']['message']);
             },
             error: function (res) {
                 showMsgDialog('网络错误，错误信息：' + res);
@@ -713,7 +715,12 @@ function theme(url, name) {
             url: url + '?name=' + name,
             type: 'get',
             success: function (res) {
-                showMsgDialog(res['message']);
+                var status = res['status'];
+                if(status['code']==0){
+                    showMsgDialog(res['result']['message']);
+                } else {
+                    showMsgDialog(res['result']['message']);
+                }
             },
             error: function (error) {
                 showMsgDialog("网络错误，错误信息为：" + error);
@@ -732,10 +739,10 @@ function saveTheme() {
             headers: {"ClientCallMode": "ajax"}, //添加请求头部
             success: function (data) {
                 //提取结果消息
-                var state = data['state'];
-                var message = data['message'];
+                var status = data['status'];
+                var message = data['result']['message'];
                 //显示消息
-                if (state == 1) {
+                if (status['code'] == 0) {
                     showMsgDialog(message);
                 } else {
                     showMsgDialog(message);

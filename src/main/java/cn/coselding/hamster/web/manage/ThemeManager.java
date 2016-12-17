@@ -1,5 +1,7 @@
 package cn.coselding.hamster.web.manage;
 
+import cn.coselding.hamster.dto.CommonMessage;
+import cn.coselding.hamster.enums.Status;
 import cn.coselding.hamster.service.ThemeService;
 import cn.coselding.hamster.dto.Theme;
 import cn.coselding.hamster.utils.FSAuthorityUtil;
@@ -61,7 +63,7 @@ public class ThemeManager implements ServletContextAware{
 
     @RequestMapping("/change")
     @ResponseBody
-    public Map<String,Object> change(@RequestParam("name")String name,
+    public CommonMessage change(@RequestParam("name")String name,
                          Model model) {
         Map<String,Object> res = new HashMap<String,Object>();
         File theme = new File(realRootPath+"/WEB-INF/themes/"+name);
@@ -69,7 +71,7 @@ public class ThemeManager implements ServletContextAware{
             res.put("state",0);
             res.put("message","主题不存在！");
             logger.info("主题不存在:"+name);
-            return res;
+            return new CommonMessage(res,Status.AUTH_ERROR);
         }
         try {
             //主题存在了,加载主题
@@ -79,13 +81,13 @@ public class ThemeManager implements ServletContextAware{
             logger.info("主题切换成功:"+name);
 
             fsAuthorityUtil.passAuthority();
-            return res;
+            return CommonMessage.success(res);
         }catch (Exception e){
             e.printStackTrace();
             res.put("state",0);
             res.put("message","主题加载失败！");
             logger.info("主题加载失败:"+name);
-            return res;
+            return new CommonMessage(res,Status.SERVER_ERROR);
         }
     }
 
@@ -108,7 +110,7 @@ public class ThemeManager implements ServletContextAware{
 
     @RequestMapping("/add")
     @ResponseBody
-    public Map<String,Object> add(@RequestParam("name")String name,
+    public CommonMessage add(@RequestParam("name")String name,
                                   @RequestParam(value = "logo",required = false)MultipartFile logo){
         Map<String,Object> res = new HashMap<String,Object>();
         try {
@@ -116,13 +118,13 @@ public class ThemeManager implements ServletContextAware{
             res.put("state", 1);
             res.put("message", "主题保存成功！");
             logger.info("主题保存成功:"+name);
-            return res;
+            return CommonMessage.success(res);
         }catch (Exception e){
             e.printStackTrace();
             res.put("state", 0);
             res.put("message", "主题保存失败！");
             logger.info("主题保存失败:"+name);
-            return res;
+            return new CommonMessage(res,Status.SERVER_ERROR);
         }
     }
 }

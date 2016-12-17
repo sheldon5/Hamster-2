@@ -40,7 +40,8 @@ function refreshLookedAndLikes(refreshURL) {
         type: "GET",
         url: refreshURL,
         success: function (art) {
-            updateLookedAndLikes('looked', art['looked'], 'likes', art['likes']);
+            // alert(art['result']['article']['looked']+" -- " +art['result']['article']['likes']);
+            updateLookedAndLikes('looked', art['result']['article']['looked'], 'likes', art['result']['article']['likes']);
         }
     });
 }
@@ -49,8 +50,9 @@ function refreshLast3Articles(url,contextPath){
     $.ajax({
         url:url,
         type:'get',
-        success: function (articles) {
-            var html="";
+        success: function (data) {
+            var articles = data['result']['articles'];
+            var html = "";
             for(var i=0;i<articles.length;i++){
                 html+='<li class="list-group-item">'
                     +'<div class="list-group-item-heading text-left">'
@@ -76,7 +78,8 @@ function refreshCategories(url,contextPath){
     $.ajax({
         url:url,
         type:'get',
-        success: function (categories) {
+        success: function (data) {
+            var categories = data['result']['categories'];
             var html="";
             for(var i=0;i<categories.length;i++){
                 html+='<li class="list-group-item"><a href="'+contextPath+'/list?cid='+categories[i]['cid']+'">'+categories[i]['cname']+'('+categories[i]['count']+')</a></li>';
@@ -95,8 +98,8 @@ function like(likeURL) {
         type: "GET",
         url: likeURL,
         success: function (art) {
-            var looked = art['looked'];
-            var likes = art['likes'];
+            var looked = art['result']['article']['looked'];
+            var likes = art['result']['article']['likes'];
             updateLookedAndLikes('looked', looked, 'likes', likes);
         }
     });
@@ -114,8 +117,8 @@ function like1(likeURL,artid) {
         type: "GET",
         url: likeURL,
         success: function (art) {
-            var looked = art['looked'];
-            var likes = art['likes'];
+            var looked = art['result']['article']['looked'];
+            var likes = art['result']['article']['likes'];
             updateLookedAndLikes1('looked-'+artid, looked, 'likes-'+artid, likes);
         }
     });
@@ -177,10 +180,10 @@ function submitComment(url) {
         headers: {"ClientCallMode": "ajax"}, //添加请求头部
         success: function (data) {
             //提取结果消息
-            var state = data['state'];
-            var message = data['message'];
+            var status = data['status'];
+            var message = data['result']['message'];
             //显示消息
-            if (state == 1) {
+            if (status['code'] == 0) {
                 //输入框重置
                 $('#nickname').val('');
                 $('#gemail').val('');
