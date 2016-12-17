@@ -5,7 +5,7 @@
     <title>${article.title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入 Bootstrap -->
-    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
     <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
     <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
         </button>
         <div class="navbar-brand"></div>
         <img src="${contextPath}/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
-        <a class="title-text nav-title" style="color: #e38d13" href="${contextPath}/public/contact.html">Coselding</a>
+        <a class="title-text nav-title" style="color: #FFFFFF" href="${contextPath}/public/contact.html">Coselding</a>
     </div>
     <div class="collapse navbar-collapse" id="example-navbar-collapse">
         <ul class="nav navbar-nav navbar-right" id="menu-click">

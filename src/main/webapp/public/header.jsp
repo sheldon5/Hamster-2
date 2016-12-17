@@ -18,7 +18,7 @@
       </button>
     <div class="navbar-brand"></div>
     <img src="${pageContext.request.contextPath}/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
-    <a class="title-text nav-title" style="color: #e38d13" href="${pageContext.request.contextPath}/public/contact.html">Coselding</a>
+    <a class="title-text nav-title" style="color: #FFFFFF" href="${pageContext.request.contextPath}/public/contact.html">Coselding</a>
   </div>
   <div class="collapse navbar-collapse" id="example-navbar-collapse">
     <ul class="nav navbar-nav navbar-right" id="menu-click">

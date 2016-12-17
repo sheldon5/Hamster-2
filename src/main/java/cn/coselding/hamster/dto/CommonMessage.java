@@ -1,8 +1,6 @@
 package cn.coselding.hamster.dto;
 
 import cn.coselding.hamster.enums.Status;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.util.Arrays;
 import java.util.Collections;

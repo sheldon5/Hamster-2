@@ -4,7 +4,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, p {
-    font-family: 微软雅黑;
+    font-family: "微软雅黑";
 }
 
 a {
@@ -14,14 +14,9 @@ a {
     -moz-transition: all 200ms ease-in;
 }
 
-a:hover, a:link, a:visited, a:active {
+a:hover, a:active ,a:link, a:visited{
     text-decoration: none;
-    color: #3F3F3F;
-}
-
-a:hover {
-    /*color: #204d74;*/
-    color: #583DFF;
+    color: #2592E4;
 }
 
 /*导航栏标题*/
@@ -71,7 +66,12 @@ a:hover {
 }
 
 .visitor-text {
-    color: #d58512;
+    /*color: #d58512;*/
+    color: #FFFFFF;
+}
+
+.nav-title-text{
+    color: #FFFFFF;
 }
 
 /*联系方式*/
