@@ -60,8 +60,6 @@
                         </h4></li>
                         <li><h4>微博：<a style="color: #4183C4;" href="http://weibo.com/u/2671168890"
                                       title="微博">Coselding</a></h4></li>
-                        <li><h4>QQ：<a style="color: #4183C4;" href="tencent://message/?uin=1098129797&Site=&Menu=yes"
-                                      title="QQ">1098129797</a></h4></li>
                         <li><h4>Email：<a style="color: #4183C4;" href="mailto:1098129797@qq.com" title="邮件">1098129797@qq.com</a>
                         </h4></li>
                     </ul>
