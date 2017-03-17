@@ -152,7 +152,7 @@
                     <li class="list-group-item"><a href="https://cloudups.github.io">凌云阁</a></li>
                     <li class="list-group-item"><a href="https://noahzu.github.io">Android资源开发小栈</a></li>
                     <li class="list-group-item"><a href="https://heinika.github.io/">陈利津</a></li>
-                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO">赚刀笔记</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO">SEO</a></li>
                 </ul>
             </div>
         </div>
