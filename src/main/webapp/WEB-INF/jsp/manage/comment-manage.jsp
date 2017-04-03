@@ -42,7 +42,7 @@
                         <div class="panel-title text-center">${pageTitle}</div>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-primary" onclick="checkAllComment('${pageContext.request.contextPath}/manage/comment/checkAll')"></button>
+                    <button class="btn btn-primary" onclick="return checkAllComment('${pageContext.request.contextPath}/manage/comment/checkAll')">一键全部审核</button>
                 </div>
                 <div class="panel panel-default">
                     <input type="hidden" id="gid" name="gid" value="${gid}">
