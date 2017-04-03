@@ -92,6 +92,15 @@
         limit #{startindex},#{pagesize};
     </select>
 
+    <update id="checkAllComments">
+        update
+          comment
+        set
+          pass=#{pass}
+        where
+          pass=0
+    </update>
+
     <update id="setCommentPass">
         update
           comment

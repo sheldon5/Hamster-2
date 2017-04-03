@@ -7,7 +7,6 @@ import cn.coselding.hamster.dto.Page;
 import cn.coselding.hamster.dto.Query;
 import cn.coselding.hamster.filter.LoginFilter;
 import cn.coselding.hamster.service.GuestService;
-import cn.coselding.hamster.service.VisitorService;
 import cn.coselding.hamster.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**留言管理Controller
+/**
+ * 留言管理Controller
  * Created by 宇强 on 2016/10/4 0004.
  */
 @Controller
@@ -58,8 +55,8 @@ public class CommentManager implements ServletContextAware {
     public String addGo(@Valid CommentForm commentForm,
                         BindingResult result,
                         Model model) {
-        if(result.hasErrors()){
-            WebUtils.validateForm(result,model);
+        if (result.hasErrors()) {
+            WebUtils.validateForm(result, model);
             model.addAttribute("comment", commentForm);
             model.addAttribute("comid", commentForm.getComid());
             model.addAttribute("method", "add");
@@ -68,12 +65,12 @@ public class CommentManager implements ServletContextAware {
         }
 
         Comment comment = new Comment();
-        WebUtils.copyBean(commentForm,comment);
+        WebUtils.copyBean(commentForm, comment);
 
         guestService.addComment(comment);
         model.addAttribute("message", "留言添加成功！！！");
         model.addAttribute("url", contextPath + "/manage/comment/");
-        logger.info("留言添加成功...comcontent="+commentForm.getComcontent());
+        logger.info("留言添加成功...comcontent=" + commentForm.getComcontent());
         return "message";
     }
 
@@ -82,7 +79,7 @@ public class CommentManager implements ServletContextAware {
     public String delete(@RequestParam("comid") int comid,
                          Model model) {
         guestService.deleteComment(comid);
-        logger.info("留言删除成功...：comid="+comid);
+        logger.info("留言删除成功...：comid=" + comid);
         return "redirect:/manage/comment/";
     }
 
@@ -91,8 +88,8 @@ public class CommentManager implements ServletContextAware {
     public String updateGo(@Valid CommentForm commentForm,
                            BindingResult result,
                            Model model) {
-        if(result.hasErrors()){
-            WebUtils.validateForm(result,model);
+        if (result.hasErrors()) {
+            WebUtils.validateForm(result, model);
             model.addAttribute("comment", commentForm);
             model.addAttribute("comid", commentForm.getComid());
             model.addAttribute("method", "update");
@@ -101,12 +98,12 @@ public class CommentManager implements ServletContextAware {
         }
 
         Comment comment = new Comment();
-        WebUtils.copyBean(commentForm,comment);
+        WebUtils.copyBean(commentForm, comment);
 
         guestService.updateComment(comment);
         model.addAttribute("message", "留言信息修改成功！！！");
         model.addAttribute("url", contextPath + "/manage/comment/");
-        logger.info("留言修改成功...：comcontent="+commentForm.getComcontent());
+        logger.info("留言修改成功...：comcontent=" + commentForm.getComcontent());
         return "message";
     }
 
@@ -115,7 +112,7 @@ public class CommentManager implements ServletContextAware {
     public String update(@RequestParam("comid") int comid,
                          Model model) {
         CommentForm commentForm = new CommentForm();
-        WebUtils.copyBean(guestService.queryComment(comid),commentForm);
+        WebUtils.copyBean(guestService.queryComment(comid), commentForm);
         model.addAttribute("comment", commentForm);
         model.addAttribute("comid", comid);
 
@@ -126,16 +123,16 @@ public class CommentManager implements ServletContextAware {
 
     @RequestMapping("/pass")
     @ResponseBody
-    public CommonMessage passComment(@RequestParam("comid")int comid,
-                                          @RequestParam("pass")int pass){
-        Map<String,Object> res = new HashMap<String,Object>();
-        guestService.setCommentPass(comid,pass);
-        res.put("state",1);
-        res.put("message","留言审核成功！");
-        if(pass==1){
-            res.put("resMsg","通过");
-        }else {
-            res.put("resMsg","不通过");
+    public CommonMessage passComment(@RequestParam("comid") int comid,
+                                     @RequestParam("pass") int pass) {
+        Map<String, Object> res = new HashMap<String, Object>();
+        guestService.setCommentPass(comid, pass);
+        res.put("state", 1);
+        res.put("message", "留言审核成功！");
+        if (pass == 1) {
+            res.put("resMsg", "通过");
+        } else {
+            res.put("resMsg", "不通过");
         }
         return CommonMessage.success(res);
     }
@@ -146,14 +143,21 @@ public class CommentManager implements ServletContextAware {
         //分页查询所有留言
         String url = contextPath + "/manage/comment/wait";
         Page<Comment> page = guestService.queryWaitPageComments(query.pageNumValue(), url);
-        for(Comment c:page.getList()){
-            if(c.getComcontent().length()>20){
-                c.setComcontent(c.getComcontent().substring(0,20)+"...");
+        for (Comment c : page.getList()) {
+            if (c.getComcontent().length() > 20) {
+                c.setComcontent(c.getComcontent().substring(0, 20) + "...");
             }
         }
         model.addAttribute("page", page);
         model.addAttribute("pageTitle", "待审核留言");
         return "manage/comment-manage";
+    }
+
+    @RequestMapping("/checkAll")
+    @ResponseBody
+    public CommonMessage checkAllComments(@RequestParam("pass") int pass) {
+        guestService.checkAllComments(pass);
+        return CommonMessage.success("审核成功");
     }
 
     //分页查询留言界面
@@ -163,9 +167,9 @@ public class CommentManager implements ServletContextAware {
         //分页查询所有留言
         String url = contextPath + "/manage/comment/";
         Page<Comment> page = guestService.queryPageComments(query.pageNumValue(), url);
-        for(Comment c:page.getList()){
-            if(c.getComcontent().length()>20){
-                c.setComcontent(c.getComcontent().substring(0,20)+"...");
+        for (Comment c : page.getList()) {
+            if (c.getComcontent().length() > 20) {
+                c.setComcontent(c.getComcontent().substring(0, 20) + "...");
             }
         }
         model.addAttribute("page", page);
@@ -176,7 +180,7 @@ public class CommentManager implements ServletContextAware {
     //查询单个留言
     @RequestMapping(value = "/query")
     @ResponseBody
-    public CommonMessage list(@RequestParam("comid")int comid) {
+    public CommonMessage list(@RequestParam("comid") int comid) {
         Comment comment = guestService.queryComment(comid);
         System.out.println(comment);
         return CommonMessage.success(comment);
@@ -184,12 +188,12 @@ public class CommentManager implements ServletContextAware {
 
     //默认情况下，查询列表
     @RequestMapping(value = "/")
-    public String default1(Query query,Model model) {
+    public String default1(Query query, Model model) {
         return list(query, model);
     }
 
     @RequestMapping(value = "")
-    public String default2(Query query,Model model) {
+    public String default2(Query query, Model model) {
         return list(query, model);
     }
 }

@@ -41,6 +41,8 @@
                     <div class="panel-heading">
                         <div class="panel-title text-center">${pageTitle}</div>
                     </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-primary" onclick="checkAllComment('${pageContext.request.contextPath}/manage/comment/checkAll')"></button>
                 </div>
                 <div class="panel panel-default">
                     <input type="hidden" id="gid" name="gid" value="${gid}">
@@ -60,16 +62,21 @@
                             <tr>
                                 <td>${comment.comid}</td>
                                 <td>
-                                    <a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/guest/comments?gid=${comment.gid}">${comment.gid}</a>
+                                    <a style="color:#0000ff"
+                                       href="${pageContext.request.contextPath}/manage/guest/comments?gid=${comment.gid}">${comment.gid}</a>
                                 </td>
-                                <td><a href="javascript:getFullComcontent('${comment.comid}','${pageContext.request.contextPath}')">${fn:escapeXml(comment.comcontent)}</a></td>
                                 <td>
-                                    <a style="color:#0000ff" href="${pageContext.request.contextPath}/manage/article/${comment.artid}">${comment.artid}</a>
+                                    <a href="javascript:getFullComcontent('${comment.comid}','${pageContext.request.contextPath}')">${fn:escapeXml(comment.comcontent)}</a>
+                                </td>
+                                <td>
+                                    <a style="color:#0000ff"
+                                       href="${pageContext.request.contextPath}/manage/article/${comment.artid}">${comment.artid}</a>
                                 </td>
                                 <td id="comid-${comment.comid}">
                                     <c:choose>
                                         <c:when test="${comment.pass==0}">
-                                            <button class="btn btn-primary" onclick="return passComment('${pageContext.request.contextPath}/manage/comment/pass','${comment.comid}')">
+                                            <button class="btn btn-primary"
+                                                    onclick="return passComment('${pageContext.request.contextPath}/manage/comment/pass','${comment.comid}')">
                                                 未审核
                                             </button>
                                         </c:when>
@@ -83,10 +90,16 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td><fmt:formatDate value="${comment.comtime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
+                                <td><fmt:formatDate value="${comment.comtime}"
+                                                    pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
                                 <td>
-                                    <button class="btn btn-danger" onclick="return deleteCommentConfirm('${pageContext.request.contextPath}/manage/comment/delete?comid=${comment.comid}','${comment.comid}')">删除</button>&nbsp;
-                                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/manage/comment/update?comid=${comment.comid}">修改</a>&nbsp;
+                                    <button class="btn btn-danger"
+                                            onclick="return deleteCommentConfirm('${pageContext.request.contextPath}/manage/comment/delete?comid=${comment.comid}','${comment.comid}')">
+                                        删除
+                                    </button>
+                                    &nbsp;
+                                    <a class="btn btn-primary"
+                                       href="${pageContext.request.contextPath}/manage/comment/update?comid=${comment.comid}">修改</a>&nbsp;
                                 </td>
                             </tr>
                         </c:forEach>

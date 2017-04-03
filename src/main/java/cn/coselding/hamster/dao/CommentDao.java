@@ -24,6 +24,8 @@ public interface CommentDao {
 
     void setCommentPass(@Param("comid") int comid,@Param("pass") int pass);
 
+    void checkAllComments(@Param("pass") int pass);
+
     //查询总数
     int queryCount();
     //查分页

@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**管理员：处理访客和留言板业务逻辑
+/**
+ * 管理员：处理访客和留言板业务逻辑
  * Created by 宇强 on 2016/3/15 0015.
  */
 @Service
@@ -86,9 +87,16 @@ public class GuestServiceImpl implements cn.coselding.hamster.service.GuestServi
         commentDao.updateComment(comment);
     }
 
-    public void setCommentPass(int comid,int pass){
-        commentDao.setCommentPass(comid,pass);
+    public void setCommentPass(int comid, int pass) {
+        commentDao.setCommentPass(comid, pass);
     }
+
+    @Override
+    public void checkAllComments(int pass) {
+        commentDao.checkAllComments(pass);
+    }
+
+
     //查询指定留言
     public Comment queryComment(int comid) {
         return commentDao.queryComment(comid);

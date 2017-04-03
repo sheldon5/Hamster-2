@@ -531,6 +531,32 @@ function passComment(url, comid) {
     $('#passDialog').modal('show');
     return false;
 }
+//留言审核通过
+function checkAllComment(url) {
+    $('#btn_pass_ok').click(function () {
+        var pass = $('#passD').val();
+        $.ajax({
+            url: url + '?pass=' + pass,
+            type: 'post',
+            dataType: 'json',
+            data: {},
+            success: function (res) {
+                var status = res['status'];
+                if (status['code'] == 0) {
+                    showMsgDialog(res.result);
+                } else {
+                    showMsgDialog('留言设置失败,原因：' + status['reason']);
+                }
+            },
+            error: function (res) {
+                showMsgDialog('网络错误，错误信息为：' + JSON.stringify(res));
+            }
+        });
+        $('#passDialog').modal('hide');
+    });
+    $('#passDialog').modal('show');
+    return false;
+}
 //提交管理界面的留言表单验证
 function submitManageComment() {
     var comcontent = $('#comcontent').val();

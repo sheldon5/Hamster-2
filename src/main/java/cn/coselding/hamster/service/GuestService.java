@@ -40,6 +40,8 @@ public interface GuestService {
     //设置留言审核情况
     void setCommentPass(int comid, int pass);
 
+    void checkAllComments(int pass);
+
     //查询指定留言
     Comment queryComment(int comid);
 
