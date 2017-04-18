@@ -1,5 +1,6 @@
 CREATE database myblog;
 use myblog;
+
 /*
 用户表
  */
