@@ -1,4 +1,5 @@
 CREATE database myblog;
+
 use myblog;
 
 /*
