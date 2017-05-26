@@ -99,6 +99,12 @@
           deploy=0
         limit #{startindex},#{pagesize};
     </select>
+    <select id="selectAll" resultType="Article">
+        select
+          *
+        from
+          article
+    </select>
     <select id="getPageDataInfo" resultType="Article">
         select
           artid,`time`,author,title,staticURL,a.cid,top,looked,likes,c.cname,meta,urlTitle

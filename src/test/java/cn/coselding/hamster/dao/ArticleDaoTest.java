@@ -1,13 +1,17 @@
 package cn.coselding.hamster.dao;
 
 import cn.coselding.hamster.domain.Article;
+import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -40,9 +44,16 @@ public class ArticleDaoTest {
         //articleDao.deleteArticle(176);
     }
 
+    @Ignore
     @Test
     public void testUpdateArticle() throws Exception {
-
+        List<Article> articles = articleDao.selectAll();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < articles.size(); i++) {
+            String res = ">* ["+articles.get(i).getTitle()+"](http://old.coselding.cn"+articles.get(i).getStaticURL()+")";
+            result.append(res).append("\n");
+        }
+        FileUtils.write(new File("/Users/coselding/ttt.md"),result.toString());
     }
 
     @Test

@@ -50,4 +50,6 @@ public interface ArticleDao {
     List<Article> queryLast3Articles();
 
     Article queryInfoByName(String title);
+
+    List<Article> selectAll();
 }
